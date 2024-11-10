@@ -463,3 +463,57 @@ a:hover {
     text-decoration: underline;
 }
 
+#freebtn {
+    background-color: green;
+    border-color: green;
+    color:white; 
+}
+#freebtn:hover {
+    background-color:black;
+    border-color: black;
+    color: white; 
+}
+#borde1{
+    border-color: black;
+}
+.logo img {
+    width: 195px;
+    height: 130px;
+}
+.search-container input[type="text"] {
+    padding: 5px;
+    width: 100%; 
+    max-width: 200px;
+}
+#boton2 {
+    background-color: green;
+    border-color: green;
+    color:white; 
+}
+#boton2:hover {
+    background-color:black;
+    border-color: black;
+    color: white; 
+}
+#boton3 {
+    background-color: green;
+    border-color: green;
+    color:white; 
+}
+#boton3:hover {
+    background-color:black;
+    border-color: black;
+    color: white; 
+}
+
+
+h1.logo a {
+    color: inherit; /* Hereda el color del elemento padre */
+    text-decoration: none; /* Elimina el subrayado */
+}
+
+/* Si quieres especificar un color específico */
+h1.logo a {
+    color: black; /* Puedes cambiar 'black' por el color que desees */
+    text-decoration: none;
+}
