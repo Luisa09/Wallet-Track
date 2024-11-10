@@ -9,11 +9,8 @@
 </head>
 <body>
     <header class="header">
-        <!--Encabezado de la pagina-->
         <div class="container">
-            <!--Logo-->
             <a href="#"><img src="img/logo.png" alt="Wallet Logo" class="logo-img"></a>
-            <!--Nombre de la pagina-->
             <h1 class="logo"><a href="index.html">Wallet Track</a></h1>
             <nav>
                 <ul class="nav-links">
@@ -25,41 +22,51 @@
     </header>
 
     <section class="auth-section">
-        <!--Contenedor del inicio de sesion-->
         <div class="container">
             <h2>Iniciar sesión</h2>
-            <!--Formulario de inicio de sesion-->
-            <form id="login-form" action="login_process.php" method="POST">
-                <!--Ingreso de correo electronico-->
+            <form id="login-form">
                 <div class="form-group">
                     <label for="email">Correo Electrónico:</label>
                     <input type="email" id="email" name="email" required>
                 </div>
-                <!--Ingreso de contraseña-->
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <!--Al presionar el boton guarda en un objeto los datos ingresados-->
-                <!--Si el dato en el correo no es tipo correo no se guarda nada-->
                 <button type="submit" class="btn-primary">Iniciar sesión</button>
             </form>
         </div>
     </section>
+    
     <footer>
         <div class="container">
             <p>&copy; 2024 Wallet Track. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!--Aqui esta el script y el objeto donde se guarda todo-->
-    <script src="js/script.js" defer>
-        //Objeto
-        Obj_usuario={
-        correo= "Maria",
-        contraseña: "maria@mail.com"};
-        //LocalStorage
-        localStorage.setItem("usuario", JSON.stringify(Obj_usuario));
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevenir el envío del formulario
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Obtener los datos del usuario guardados en localStorage
+            const storedUser = JSON.parse(localStorage.getItem('user'));
+
+            if (!storedUser) {
+                alert("No se encontró un usuario registrado. Por favor, regístrate primero.");
+                return;
+            }
+
+            // Verificar si los datos de login coinciden con los almacenados
+            if (storedUser.email === email && storedUser.password === password) {
+                alert('Inicio de sesión exitoso');
+                window.location.href = 'index.html'; // Redirigir a la página principal
+            } else {
+                alert('Correo electrónico o contraseña incorrectos');
+            }
+        });
     </script>
 </body>
 </html>

@@ -25,9 +25,13 @@
                     <li><a href="#contact-form">Contacto</a></li>
                     <!--Quiero poner un if que si se esta regitrado muestre nombre de usuario y ahora mande a Perfil-->
                     <!--Si no se esta registrado entonces que muestre la opcion de ir al login-->
-                    <li><a href="login.html" class="nav-button">Login o registro</a></li>
+                    <li><a href="login.html" class="nav-button" id="login-register-btn">Login o registro</a></li>
                 </ul>
             </nav>
+            <div id="user-email" class="user-email"></div>
+            <div id="user-info" class="user-info" style="display: none;">
+            <span id="user-email"></span>
+            <button id="logout-btn">Salir</button>
         </div>
     </header>
 
@@ -269,7 +273,7 @@
                         <th>Licencia</th>
                         <th>Cantidad</th>
                         <th>Total Por Licencia</th>
-                        <th>Acciones</th> <!-- Columna para los botones de acción -->
+                     
                         
                     </tr>
                 </thead>

@@ -518,3 +518,133 @@ h1.logo a {
     text-decoration: none;
 }
 
+/* Media Queries para hacerlo responsive */
+
+/* Estilos para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+    .header .logo {
+        font-size: 1.2rem;
+    }
+
+    .header nav {
+        float: none;
+        text-align: center;
+    }
+
+    .header nav ul {
+        display: block;
+    }
+
+    .header nav ul li {
+        display: block;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .features-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .feature-left, .feature-right {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .signup input[type="email"] {
+        width: 80%;
+    }
+
+    .social-media a {
+        margin: 10px;
+    }
+
+    .team {
+        flex-direction: column;
+    }
+
+    .member {
+        margin-bottom: 20px;
+    }
+
+    .auth-section {
+        width: 80%;
+        padding: 20px;
+    }
+}
+
+/* Estilos para pantallas de tabletas */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .header .logo {
+        font-size: 1.4rem;
+    }
+
+    .header nav ul {
+        display: flex;
+        justify-content: center;
+    }
+
+    .header nav ul li {
+        margin-left: 15px;
+    }
+
+    .features-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .feature-left, .feature-right {
+        width: 45%;
+    }
+}
+
+/* Estilos para pantallas grandes (escritorio) */
+@media (min-width: 1024px) {
+    .features-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .feature-left, .feature-right {
+        width: 48%;
+    }
+}
+
+/* Alinear el correo electrónico a la derecha */
+.user-email {
+    position: absolute;
+    top: 60px; /* Ajusta según la altura deseada */
+    right:20px; /* Ajusta según la separación deseada del borde derecho */
+    font-size: 16px;
+    color: #333; /* Puedes cambiar el color según tu diseño */
+    font-weight: bold;
+}
+
+.user-info {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#user-email {
+    margin-right: 10px;
+}
+
+#logout-btn {
+    color: black;
+    text-decoration: none;
+    padding: 10px 40px;
+    background: #98d979 ;
+    border-radius: 10px;
+    
+}
+.hidden {
+    display: none;
+}
