@@ -439,18 +439,18 @@ input[type="password"]:focus {
 
 /* Estilo del botón */
 button {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
+    width: 50%;
+    padding: 10px;
+    background-color: #98d979;
     border: none;
     color: white;
-    font-size: 16px;
+    font-size: 10px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #44A617;
 }
 
 /* Enlaces */
@@ -517,3 +517,4 @@ h1.logo a {
     color: black; /* Puedes cambiar 'black' por el color que desees */
     text-decoration: none;
 }
+
