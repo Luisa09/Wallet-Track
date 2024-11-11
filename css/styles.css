@@ -648,3 +648,10 @@ h1.logo a {
 .hidden {
     display: none;
 }
+
+.orden
+{
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
