@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
 </head>
 <body>
+    <div class="container"></div>
     <!--Seccion del encabezado de la pagina-->
     <header class="header">
         <div class="container">
@@ -132,7 +132,6 @@
         </div>
     </section>
 
-
     <div class="container">
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center" >
             <div class="col">
@@ -154,80 +153,15 @@
                         <br>
                         <button type="button" id="freebtn" class="w-100 btn btn-lg">Agregar</button>
                         <input type="text" name="" id="ginpt" class="form-control" placeholder="Cantidad">
+                        <div class="rating" id="rating-free">
+                            <span data-value="5">&#9733;</span>
+                            <span data-value="4">&#9733;</span>
+                            <span data-value="3">&#9733;</span>
+                            <span data-value="2">&#9733;</span>
+                            <span data-value="1">&#9733;</span>
+                        </div>
                       </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center" >
-        <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm" id="borde1">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Gratis</h4>
                 </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$0<small
-                            class="text-body-secondary fw-light">/mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>💵Restricción de funciones Exclusive</li>                           
-                        <li>💵Comentarios deshabilitados</li>
-                        <li>💵Publicidad de productos</li>
-                        <li>💵Sin recomendaciones personalizadas</li>
-                        <li>💵Limitaciones de uso</li>
-                        <li>💵Acceso limitado del contenido</li>
-                    </ul>
-                    <button type="button" id="freebtn" class="w-100 btn btn-lg">Agregar</button>
-                    <input type="text" name="" id="ginpt" class="form-control" placeholder="Cantidad">
-                  </div>
-
-                  <form id = "form">
-                    <p class="clasificacion">
-                      <input id="radio1" type="radio" name="estrellas" value="5"><!--
-                      --><label for="radio1">★</label><!--
-                      --><input id="radio2" type="radio" name="estrellas" value="4"><!--
-                      --><label for="radio2">★</label><!--
-                      --><input id="radio3" type="radio" name="estrellas" value="3"><!--
-                      --><label for="radio3">★</label><!--
-                      --><input id="radio4" type="radio" name="estrellas" value="2"><!--
-                      --><label for="radio4">★</label><!--
-                      --><input id="radio5" type="radio" name="estrellas" value="1"><!--
-                      --><label for="radio5">★</label>
-                    </p>
-                  </form>
-
-            </div>
-        </div>
-        <div class="col">
-            <div class="card mb-4 rounded-3 shadow-sm" id="borde1">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-success">Exclusiva</h4>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$34.99<small
-                            class="text-body-secondary fw-light">/mo</small></h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>💵Funciones Exclusivas</li>                           
-                        <li>💵Comentarios limitados</li>
-                        <li>💵Reducción de publicidad de productos</li>
-                        <li>💵Recomendaciones personalizadas limitadas</li>
-                        <li>💵Sin limitaciones de uso</li>
-                        <li>💵Acceso limitado del contenido</li>
-                    </ul>
-                    <button type="button" id="boton2" class="w-100 btn btn-lg btn-outline-primary">Agregar</button>
-                    <input type="text" name="" id="pinpt" class="form-control" placeholder="Cantidad">
-                </div>
-
-                <form id = "form">
-                    <p class="clasificacion">
-                      <input id="radio1" type="radio" name="estrellas" value="5"><!--
-                      --><label for="radio1">★</label><!--
-                      --><input id="radio2" type="radio" name="estrellas" value="4"><!--
-                      --><label for="radio2">★</label><!--
-                      --><input id="radio3" type="radio" name="estrellas" value="3"><!--
-                      --><label for="radio3">★</label><!--
-                      --><input id="radio4" type="radio" name="estrellas" value="2"><!--
-                      --><label for="radio4">★</label><!--
-                      --><input id="radio5" type="radio" name="estrellas" value="1"><!--
-                      --><label for="radio5">★</label>
-                    </p>
-                  </form>
-
             </div>
             <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm" id="borde1">
@@ -247,6 +181,13 @@
                         </ul>
                         <button type="button" id="boton2" class="w-100 btn btn-lg btn-outline-primary">Agregar</button>
                         <input type="text" name="" id="pinpt" class="form-control" placeholder="Cantidad">
+                        <div class="rating" id="rating-exclusive">
+                            <span data-value="5">&#9733;</span>
+                            <span data-value="4">&#9733;</span>
+                            <span data-value="3">&#9733;</span>
+                            <span data-value="2">&#9733;</span>
+                            <span data-value="1">&#9733;</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -268,24 +209,15 @@
                         </ul>
                         <button type="button" id="boton3" class="w-100 btn btn-lg btn-outline-primary">Agregar</button>
                         <input type="text" name="" id="spinpt" class="form-control" placeholder="Cantidad">
+                        <div class="rating" id="rating-super">
+                            <span data-value="5">&#9733;</span>
+                            <span data-value="4">&#9733;</span>
+                            <span data-value="3">&#9733;</span>
+                            <span data-value="2">&#9733;</span>
+                            <span data-value="1">&#9733;</span>
+                        </div>
                     </div>
                 </div>
-
-                <form id = "form">
-                    <p class="clasificacion">
-                      <input id="radio1" type="radio" name="estrellas" value="5"><!--
-                      --><label for="radio1">★</label><!--
-                      --><input id="radio2" type="radio" name="estrellas" value="4"><!--
-                      --><label for="radio2">★</label><!--
-                      --><input id="radio3" type="radio" name="estrellas" value="3"><!--
-                      --><label for="radio3">★</label><!--
-                      --><input id="radio4" type="radio" name="estrellas" value="2"><!--
-                      --><label for="radio4">★</label><!--
-                      --><input id="radio5" type="radio" name="estrellas" value="1"><!--
-                      --><label for="radio5">★</label>
-                    </p>
-                  </form>
-
             </div>
         </div>
     </div>
@@ -301,9 +233,9 @@
         </symbol>
     </svg>
 
-        <div class="table-responsive">
+    
         <!-- Tabla con el símbolo de chulo -->
-        <div class="table-responsive container">
+        <div class="table-responsive">
             <table class="table text-center border mx-auto">
                 
                 <thead>
@@ -364,8 +296,8 @@
                     <tr class="border-secondary table-dark">
                         <th>Licencia</th>
                         <th>Cantidad</th>
+                        <th>Valor Por Licencia</th>
                         <th>Total Por Licencia</th>
-                     
                         
                     </tr>
                 </thead>
