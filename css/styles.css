@@ -655,3 +655,26 @@ h1.logo a {
     display: grid;
     grid-template-rows: auto 1fr auto;
 }
+
+/* Estilo específico para el botón de Iniciar sesión */
+.auth-section button {
+    width: 100%; /* Para que ocupe el ancho completo */
+    padding: 10px;
+    background-color: #44A617; /* Color de fondo del botón */
+    color: black; /* Color del texto */
+    font-size: 13px; /* Tamaño de fuente */
+    border: none; /* Sin borde */
+    border-radius: 10px; /* Bordes redondeados */
+    cursor: pointer; /* Cambio de cursor */
+    transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.auth-section button:hover {
+    background-color: #36a406; /* Color al pasar el ratón */
+}
+
+/* Ajustes específicos para el botón si quieres que esté alineado a la izquierda o al centro */
+.auth-section form button {
+    margin-top: 15px; /* Espaciado superior */
+    text-align: center; /* Centrando el texto */
+}
