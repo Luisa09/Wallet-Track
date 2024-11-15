@@ -679,3 +679,25 @@ h1.logo a {
     text-align: center; /* Centrando el texto */
 }
 
+/* Estrellitas */
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.rating span {
+    font-size: 1.5rem;
+    color: #ddd;
+}
+
+.rating span:hover,
+.rating span:hover ~ span,
+.rating span.selected ~ span {
+    color: #ffc107;
+}
+
+
+
+
