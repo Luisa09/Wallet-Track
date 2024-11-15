@@ -28,6 +28,18 @@
                 <h2>Registro</h2>
                 <form id="register-form">
                     <div class="form-group">
+                        <label for="name">Nombre:</label>
+                        <input type="name" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="apellidos" id="apellidos" name="apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha de nacimiento:</label>
+                        <input type="fecha" id="fecha" name="fecha" required>
+                    </div>
+                    <div class="form-group">
                         <label for="email">Correo Electrónico:</label>
                         <input type="email" id="email" name="email" required>
                     </div>
@@ -53,6 +65,9 @@
 
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            const name = document.getElementById('name').value;
+            const apellidos = document.getElementById('apellidos').value;
+            const fecha = document.getElementById('fecha').value;
 
             // Validar que el correo sea válido
             const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -60,9 +75,34 @@
                 alert('Por favor, ingresa un correo electrónico válido.');
                 return;
             }
+            
+            //Validar que el nombre y apellidos sean validos
+            const stringPattern = ^[a-zA-Z ]*$;
+            if (!stringPattern.test(name)) {
+                alert('Por favor, ingresa solo texto.');
+                return;
+            }
+            const stringPattern = ^[a-zA-Z ]*$;
+            if (!stringPattern.test(apellidos)) {
+                alert('Por favor, ingresa solo texto.');
+                return;
+            }
+
+            //Validar la fecha que es tipo date
+            const DatePattern = ^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))
+            (?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|
+            (?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$;
+            if(!DatePattern.test(fecha))
+            {
+                alert('Por favor, ingrese una fecha en formato dd/mm/yyyy, dd-mm-yyyy o dd.mm.yyyy')
+                return;
+            }
 
             // Guardar los datos del usuario en localStorage
             const user = {
+                name: name,
+                apellidos: apellidos,
+                fecha: fecha,
                 email: email,
                 password: password
             };
