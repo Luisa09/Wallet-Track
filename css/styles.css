@@ -656,48 +656,69 @@ h1.logo a {
     grid-template-rows: auto 1fr auto;
 }
 
-/* Estilo específico para el botón de Iniciar sesión */
-.auth-section button {
-    width: 100%; /* Para que ocupe el ancho completo */
-    padding: 10px;
-    background-color: #44A617; /* Color de fondo del botón */
-    color: black; /* Color del texto */
-    font-size: 13px; /* Tamaño de fuente */
-    border: none; /* Sin borde */
-    border-radius: 10px; /* Bordes redondeados */
-    cursor: pointer; /* Cambio de cursor */
-    transition: background-color 0.3s ease; /* Transición suave */
-}
-
-.auth-section button:hover {
-    background-color: #36a406; /* Color al pasar el ratón */
-}
-
-/* Ajustes específicos para el botón si quieres que esté alineado a la izquierda o al centro */
-.auth-section form button {
-    margin-top: 15px; /* Espaciado superior */
-    text-align: center; /* Centrando el texto */
-}
-
 /* Estrellitas */
-.rating {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    cursor: pointer;
-}
+#form {
+    width: 250px;
+    margin: 0 auto;
+    height: 50px;
+  }
+  
+  #form p {
+    text-align: center;
+  }
+  
+  #form label {
+    font-size: 20px;
+  }
+  
+  input[type="radio"] {
+    display: none;
+  }
+  
+  label {
+    color: grey;
+  }
+  
+  .clasificacion {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+  }
+  
+  label:hover,
+  label:hover ~ label {
+    color: orange;
+  }
+  
+  input[type="radio"]:checked ~ label {
+    color: orange;
+  }
 
-.rating span {
-    font-size: 1.5rem;
-    color: #ddd;
+   /*Las cosas que se le aplican a la clase del swiche*/
+.wrap_toggle {
+    position: relative;
+    left: 890px;
+    padding: 5px;
 }
-
-.rating span:hover,
-.rating span:hover ~ span,
-.rating span.selected ~ span {
-    color: #ffc107;
+.switch {
+position: relative;
+display: inline-block;
+width: 80px;
+height: 40px;
+background-color: #7658f1;
+border-radius: 40px;
+cursor: pointer;
+transition: all 0.5s;
 }
-
+.switch::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    background-color: whitesmoke;
+    left: 5px;
+    top: 5px;
+}
 
 #edad {
     font-size: 16px;
@@ -881,3 +902,17 @@ input[type='checkbox']:checked + .switch {
     color: white;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+input[type='checkbox']:checked + .switch::after {
+    transform: translateX(40px);
+    background-color:  black;
+}
+input[type='checkbox']:checked + .switch {
+    background-color: lightgreen;
+}
+/*Saca el checkbox de la pantalla*/
+.offscreen {
+    position: absolute;
+    left: -99999999999px;
+}
+
