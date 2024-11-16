@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
 </head>
 <body>
+    <div class="container"></div>
     <!--Seccion del encabezado de la pagina-->
     <header class="header">
         <div class="container">
@@ -21,7 +21,7 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="#features">Características</a></li>
-                    <li><a href="#nosotros" class = "">Sobre Nosotros</a></li>
+                    <li><a href="#nosotros">Sobre Nosotros</a></li>
                     <li><a href="#contact-form">Contacto</a></li>
                     <!--Quiero poner un if que si se esta regitrado muestre nombre de usuario y ahora mande a Perfil-->
                     <!--Si no se esta registrado entonces que muestre la opcion de ir al login-->
@@ -133,13 +133,7 @@
     </section>
 
 
-    <div class="wrap_toggle">
-        <input type="checkbox" id="toggle" class="offscreen" />
-        <label for="toggle" class="switch"></label>
-    </div>
-    
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-center" >
-
         <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm" id="borde1">
                 <div class="card-header py-3">
@@ -233,25 +227,10 @@
                     <button type="button" id="boton3" class="w-100 btn btn-lg btn-outline-primary">Agregar</button>
                     <input type="text" name="" id="spinpt" class="form-control" placeholder="Cantidad">
                 </div>
-
-                <form id = "form">
-                    <p class="clasificacion">
-                      <input id="radio1" type="radio" name="estrellas" value="5"><!--
-                      --><label for="radio1">★</label><!--
-                      --><input id="radio2" type="radio" name="estrellas" value="4"><!--
-                      --><label for="radio2">★</label><!--
-                      --><input id="radio3" type="radio" name="estrellas" value="3"><!--
-                      --><label for="radio3">★</label><!--
-                      --><input id="radio4" type="radio" name="estrellas" value="2"><!--
-                      --><label for="radio4">★</label><!--
-                      --><input id="radio5" type="radio" name="estrellas" value="1"><!--
-                      --><label for="radio5">★</label>
-                    </p>
-                  </form>
-
             </div>
         </div>
     </div>
+
 
     
     <h2 class="display-6 text-center mb-4">Comparación de los planes</h2>
@@ -265,7 +244,7 @@
 
     
         <!-- Tabla con el símbolo de chulo -->
-        <div class="table-responsive container">
+        <div class="table-responsive">
             <table class="table text-center border mx-auto">
                 
                 <thead>
@@ -326,8 +305,8 @@
                     <tr class="border-secondary table-dark">
                         <th>Licencia</th>
                         <th>Cantidad</th>
+                        <th>Valor Por Licencia</th>
                         <th>Total Por Licencia</th>
-                     
                         
                     </tr>
                 </thead>

@@ -160,5 +160,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const ratings = document.querySelectorAll('.rating span');
+    
+    ratings.forEach(star => {
+        star.addEventListener('click', function () {
+            let ratingValue = this.getAttribute('data-value');
+            
+            // Cambiar el color de las estrellas seleccionadas
+            this.parentElement.querySelectorAll('span').forEach(star => {
+                if (star.getAttribute('data-value') <= ratingValue) {
+                    star.style.color = 'gold'; // Estrella seleccionada
+                } else {
+                    star.style.color = 'gray'; // Estrella no seleccionada
+                }
+            });
 
-  
+            // Puedes guardar o mostrar el valor de la calificación aquí
+            console.log(`Licencia calificada con ${ratingValue} estrellas.`);
+        });
+    });
+});
