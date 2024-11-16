@@ -377,3 +377,119 @@ document.getElementById('clear-btn').addEventListener('click', function() {
 });
 
 
+
+
+// Verifica si el usuario está registrado (simulación de inicio de sesión)
+function checkLoginStatus() {
+    const userEmail = localStorage.getItem('userEmail'); // Almacena el correo en el localStorage
+    const userInfo = document.getElementById('user-info');
+    const userEmailDisplay = document.getElementById('user-email');
+    const loginButton = document.getElementById('login-register-btn');
+
+    if (userEmail) {
+        userEmailDisplay.textContent = `Bienvenido, ${userEmail}`;
+        userInfo.style.display = 'block';
+        loginButton.style.display = 'none';
+    } else {
+        userInfo.style.display = 'none';
+        loginButton.style.display = 'block';
+    }
+}
+
+// Función para cerrar sesión
+function logout() {
+    localStorage.removeItem('userEmail');
+    checkLoginStatus();
+}
+
+// Maneja la acción de login (simulando un registro)
+document.getElementById('login-register-btn').addEventListener('click', function() {
+    const userEmail = prompt("Ingresa tu correo para iniciar sesión:");
+    if (userEmail) {
+        localStorage.setItem('userEmail', userEmail); // Almacena el correo en localStorage
+        checkLoginStatus();
+    }
+});
+
+// Llama a la función al cargar la página para verificar el estado de login
+document.addEventListener('DOMContentLoaded', checkLoginStatus);
+
+// Funciones para manejar el cálculo de totales y la calificación de licencias
+function updateLicenseTable() {
+    const rows = document.querySelectorAll('input[type="text"]');
+    let subtotal = 0;
+    let iva = 0;
+    let total = 0;
+
+    rows.forEach(row => {
+        const cantidad = row.value;
+        const precio = parseFloat(row.getAttribute('data-price')); // Usamos un atributo para almacenar el precio
+        const calificacion = row.parentElement.querySelector('input[type="radio"]:checked');
+
+        if (cantidad && !isNaN(cantidad) && calificacion) {
+            const rowTotal = precio * cantidad;
+            subtotal += rowTotal;
+        }
+    });
+
+    iva = subtotal * 0.16; // Suponiendo un 16% de IVA
+    total = subtotal + iva;
+
+    document.getElementById('subtotallb').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('ivalb').textContent = `$${iva.toFixed(2)}`;
+    document.getElementById('totallb').textContent = `$${total.toFixed(2)}`;
+}
+
+// Añadir eventos a los campos de cantidad y radio buttons
+document.querySelectorAll('.form-control').forEach(input => {
+    input.addEventListener('input', updateLicenseTable);
+});
+
+document.querySelectorAll('.clasificacion input').forEach(radio => {
+    radio.addEventListener('change', updateLicenseTable);
+});
+
+// Funciones para añadir licencias a la tabla
+document.getElementById('freebtn').addEventListener('click', function() {
+    addLicenseRow('Gratis', 0, document.getElementById('ginpt').value);
+});
+
+document.getElementById('boton2').addEventListener('click', function() {
+    addLicenseRow('Exclusiva', 34.99, document.getElementById('pinpt').value);
+});
+
+document.getElementById('boton3').addEventListener('click', function() {
+    addLicenseRow('Super Exclusiva', 59.99, document.getElementById('spinpt').value);
+});
+
+// Añadir una nueva fila a la tabla de licencias
+function addLicenseRow(name, price, quantity) {
+    if (quantity && !isNaN(quantity)) {
+        const tableBody = document.getElementById('fila');
+        const total = price * quantity;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${name}</td>
+            <td>$${price.toFixed(2)}</td>
+            <td>${quantity}</td>
+            <td>$${total.toFixed(2)}</td>
+            <td>${getSelectedRating(name)}</td>
+        `;
+        tableBody.appendChild(row);
+        updateLicenseTable();
+    }
+}
+
+// Obtener la calificación seleccionada
+function getSelectedRating(name) {
+    const ratingRadios = document.querySelectorAll(`input[name="estrellas_${name.toLowerCase().replace(' ', '_')}"]`);
+    for (const radio of ratingRadios) {
+        if (radio.checked) {
+            return `★`.repeat(radio.value);
+        }
+    }
+    return 'No calificado';
+}
+
+document.getElementById('logout-btn').addEventListener('click', logout);
+
