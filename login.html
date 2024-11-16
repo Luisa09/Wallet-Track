@@ -27,6 +27,12 @@
                 <h2>Iniciar sesión</h2>
                 <form id="login-form">
                     <div class="form-group">
+                        <label for="usuario">Usuario:</label>
+                        <input type="text" id="usuario" name="usuario" readonly>
+                        <img id="user-image" alt="Imagen del Usuario" style="width: 50px; height: 50px; margin-left: 10px;">
+                    </div>
+
+                    <div class="form-group">
                         <label for="email">Correo Electrónico:</label>
                         <input type="email" id="email" name="email" required>
                     </div>
@@ -38,38 +44,50 @@
                 </form>
             </div>
         </section>
-        
+        <script>
+            document.getElementById('login-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevenir el envío del formulario
+    
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+    
+                // Obtener los datos del usuario guardados en localStorage
+                const storedUser = JSON.parse(localStorage.getItem('user'));
+    
+                if (!storedUser) {
+                    alert("No se encontró un usuario registrado. Por favor, regístrate primero.");
+                    return;
+                }
+    
+                // Verificar si los datos de login coinciden con los almacenados
+                if (storedUser.email === email && storedUser.password === password) {
+                    alert('Inicio de sesión exitoso');
+                    window.location.href = 'index.html'; // Redirigir a la página principal
+                } else {
+                    alert('Correo electrónico o contraseña incorrectos');
+                }
+            });
+            // Al cargar el formulario de login
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener los datos del usuario desde localStorage
+            const storedUser = JSON.parse(localStorage.getItem('user'));
+
+            if (storedUser) {
+                // Mostrar el nombre de usuario en el campo de texto
+                document.getElementById('usuario').value = storedUser.usuario;
+
+                // Mostrar la imagen del usuario seleccionada
+                document.getElementById('user-image').src = storedUser.image;
+            } else {
+                alert("No hay un usuario registrado.");
+            }
+        });
+        </script>
         <footer>
             <div class="container">
                 <p>&copy; 2024 Wallet Track. Todos los derechos reservados.</p>
             </div>
         </footer>
     </div>
-
-
-    <script>
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevenir el envío del formulario
-
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            // Obtener los datos del usuario guardados en localStorage
-            const storedUser = JSON.parse(localStorage.getItem('user'));
-
-            if (!storedUser) {
-                alert("No se encontró un usuario registrado. Por favor, regístrate primero.");
-                return;
-            }
-
-            // Verificar si los datos de login coinciden con los almacenados
-            if (storedUser.email === email && storedUser.password === password) {
-                alert('Inicio de sesión exitoso');
-                window.location.href = 'index.html'; // Redirigir a la página principal
-            } else {
-                alert('Correo electrónico o contraseña incorrectos');
-            }
-        });
-    </script>
 </body>
 </html>
