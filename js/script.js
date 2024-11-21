@@ -480,16 +480,132 @@ function addLicenseRow(name, price, quantity) {
     }
 }
 
-// Obtener la calificación seleccionada
-function getSelectedRating(name) {
-    const ratingRadios = document.querySelectorAll(`input[name="estrellas_${name.toLowerCase().replace(' ', '_')}"]`);
-    for (const radio of ratingRadios) {
-        if (radio.checked) {
-            return `★`.repeat(radio.value);
-        }
+    $(document).ready(function () {
+        $("#add-product-btn").click(function () {
+            console.log("Evento de clic ejecutado."); // Verifica si el evento se dispara
+
+            // Obtener la calificación seleccionada
+            var calificacion = $('input[name="estrellas_gratis"]:checked').val();
+            console.log("Calificación seleccionada:", calificacion); // Verifica la calificación seleccionada
+
+            if (!calificacion) {
+                alert("Por favor, selecciona una calificación antes de continuar.");
+                return;
+            }
+
+            // Datos del producto
+            var nombre = "Licencia Gratis";
+            var precio = 0;  // Precio de la licencia gratis
+            var cantidad = 1;
+            var total = precio * cantidad;
+
+            console.log("Datos del producto - Nombre:", nombre, "Precio:", precio, "Cantidad:", cantidad, "Total:", total);
+
+            // Crear la fila HTML
+            var nuevaFila = "<tr>" +
+                            "<td>" + nombre + "</td>" +
+                            "<td>" + precio.toFixed(2) + "</td>" +
+                            "<td>" + cantidad + "</td>" +
+                            "<td>" + total.toFixed(2) + "</td>" +
+                            "<td>" + calificacion + " ★</td>" +
+                            "</tr>";
+
+            console.log("HTML generado para la fila:", nuevaFila); // Verifica el HTML generado
+
+            // Agregar la fila a la tabla
+            $("#tabla-productos tbody").append(nuevaFila);
+            console.log("Fila añadida a la tabla."); // Confirma que se añadió la fila
+
+            // Resetear el formulario
+            $("#form-free")[0].reset();
+            console.log("Formulario reseteado."); // Confirma que el formulario se ha reiniciado
+        });
+    });
+
+    $(document).ready(function () {
+        $("#add-product-btn").click(function () {
+            // Obtener valores
+            var calificacion = $('input[name="estrellas_gratis"]:checked').val();
+            if (!calificacion) {
+                alert("Selecciona una calificación antes de agregar.");
+                return;
+            }
+    
+            var cantidad = 1; // Sustituye esto con tu lógica para obtener la cantidad
+            var precio = 59.99; // Sustituye con tu lógica para obtener el precio
+            var total = cantidad * precio;
+    
+            // Crear fila
+            var nuevaFila = `
+                <tr>
+                    <td>Licencia Gratis</td>
+                    <td>${precio.toFixed(2)}</td>
+                    <td>${cantidad}</td>
+                    <td>${total.toFixed(2)}</td>
+                    <td>${calificacion} ★</td>
+                </tr>
+            `;
+    
+            // Agregar fila a la tabla
+            $("#tabla-productos tbody").append(nuevaFila);
+    
+            // Actualizar suma
+            console.log("Suma después de agregar producto: ", total);
+        });
+    });
+    
+    function toggleChatbot() {
+        const chatbot = document.getElementById('chatbot-container');
+        chatbot.style.display = chatbot.style.display === 'block' ? 'none' : 'block';
     }
-    return 'No calificado';
+    
+
+    /*pERFIL*/
+
+    // Simulación de inicio de sesión
+function login() {
+    const email = document.getElementById("email").value; // Correo ingresado
+    const name = document.getElementById("name").value; // Nombre ingresado
+
+    // Guardar los datos en sessionStorage
+    sessionStorage.setItem("userEmail", email);
+    sessionStorage.setItem("userName", name);
+
+    // Redirigir a la página principal o perfil
+    window.location.href = "index.html";  // Redirigir a la página principal
 }
 
-document.getElementById('logout-btn').addEventListener('click', logout);
 
+// Verificar si el usuario está logueado al cargar la página
+window.onload = function() {
+    const userEmail = sessionStorage.getItem("userEmail");
+    const userName = sessionStorage.getItem("userName");
+
+    if (userEmail && userName) {
+        // Mostrar el correo y habilitar el perfil
+        document.getElementById("user-email").textContent = userEmail;
+        document.getElementById("profile-name").value = userName;  // Prellenar el nombre en el formulario
+        document.getElementById("profile-email").value = userEmail;  // Prellenar el correo
+    } else {
+        // Si no hay sesión, redirigir al login
+        window.location.href = "login.html";
+    }
+
+    // Mostrar el formulario de perfil al hacer clic en el correo
+    document.getElementById("user-email").addEventListener("click", function() {
+        const dropdown = document.getElementById("profile-dropdown");
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    });
+}
+
+// Guardar los cambios del perfil
+function saveProfile() {
+    const updatedName = document.getElementById("profile-name").value;
+    const updatedEmail = document.getElementById("profile-email").value;
+
+    // Guardar los nuevos datos en sessionStorage
+    sessionStorage.setItem("userName", updatedName);
+    sessionStorage.setItem("userEmail", updatedEmail);
+
+    alert("Perfil actualizado correctamente!");
+}

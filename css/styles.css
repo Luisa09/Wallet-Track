@@ -221,19 +221,9 @@ textarea {
     resize: none; /* Evita que el usuario cambie el tamaño del textarea */
 }
 
-button {
-    background-color: #28a745; /* Color de fondo del botón */
-    color: white; /* Color del texto del botón */
-    padding: 8px 15px; /* Espaciado interno del botón */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    transition: background-color 0.3s; /* Transición suave al cambiar el color */
-}
 
-button:hover {
-    background-color: #218838; /* Color del botón al pasar el mouse */
-}
+
+
 
 .about {
     flex: 1; /* Permitir que esta sección ocupe el espacio restante */
@@ -441,7 +431,7 @@ input[type="password"]:focus {
 button {
     width: 50%;
     padding: 10px;
-    background-color: #98d979;
+    background-color: #44A617;
     border: none;
     color: white;
     font-size: 10px;
@@ -700,14 +690,14 @@ h1.logo a {
     padding: 5px;
 }
 .switch {
-position: relative;
-display: inline-block;
-width: 80px;
-height: 40px;
-background-color: #7658f1;
-border-radius: 40px;
-cursor: pointer;
-transition: all 0.5s;
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 40px;
+    background-color: #44A617;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.5s;
 }
 .switch::after {
     content: '';
@@ -826,12 +816,49 @@ transition: all 0.5s;
     color: #4CAF50; /* Cambiar el color del texto cuando la imagen está seleccionada */
 }
 
+#register-btn {
+    display: block; /* Mantener bloque en ambos estados */
+    margin: 0 auto; /* Centrar horizontalmente */
+    font-size: 16px;
+    border-radius: 5px;
+    color: black;
+}
+
+/* Estilo para cuando está deshabilitado */
 #register-btn:disabled {
     background-color: #ccc;  /* Color de fondo cuando está desactivado */
-    cursor: not-allowed;     /* Cambiar el cursor para indicar que no se puede hacer clic */
+    cursor: not-allowed;     /* Cambiar el cursor */
+}
+
+/* Estilo para cuando está habilitado (si lo necesitas personalizado) */
+#register-btn:not(:disabled) {
+    background-color: #44A617; /* Color de fondo para habilitado */
+    cursor: pointer;           /* Cambiar cursor para habilitado */
+    color: black;
 }
 
 
+#clear-btn{
+    font-size: 16px;
+    border-radius: 5px;
+    display: block; /* Para convertir el botón en un bloque */
+    margin: 0 auto; /* Centrar horizontalmente */
+    color: black;
+}
+
+#boton{
+    font-size: 16px;
+    border-radius: 5px;
+    display: block; /* Para convertir el botón en un bloque */
+    margin: 0 auto; /* Centrar horizontalmente */
+    color: black;
+}
+#nav-button1{
+    font-size: 16px;
+    border-radius: 5px;
+    display: block; /* Para convertir el botón en un bloque */
+    margin: 0 auto; /* Centrar horizontalmente */
+}
 /*Las cosas que se le aplican a la clase del swiche*/
 .wrap_toggle {
     position: absolute;
@@ -886,3 +913,317 @@ transition: all 0.5s;
         background-color: #9d9d9d;
         color: white;
     }
+
+    #help-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 24px;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    #chatbot-container {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 300px;
+        max-height: 400px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+    }
+    
+    #chatbot-header {
+        background-color: #E4F1F2;
+        color: black;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    
+    #chatbot-body {
+        padding: 10px;
+        overflow-y: auto;
+    }
+    
+    #chatbot-body ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    #chatbot-body li {
+        margin-bottom: 10px;
+        cursor: pointer;
+        color: black;
+    }
+    
+    #chatbot-body li:hover {
+        text-decoration: underline;
+    }
+    
+
+    /**/
+
+
+    /* Fondo general */
+body.metodos-pago {
+    background: linear-gradient(to bottom, #ffffff, #e0f7fa);
+    font-family: 'Poppins', sans-serif;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: #81D959;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header nav a {
+    color: white;
+    margin: 0 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+header nav a:hover {
+    color: #e0f7fa;
+}
+
+/* Contenido principal */
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+main h1 {
+    color: #81D959;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+main p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+main ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    text-align: left;
+    max-width: 400px;
+}
+
+main ul li {
+    background: #e0f7fa;
+    color: black;
+    margin: 0.5rem 0;
+    padding: 0.8rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+main ul li::before {
+    content: "✓";
+    color: #91BF84;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/**/
+
+
+/* Fondo general */
+body.como-registrarme {
+    background: linear-gradient(to bottom, #ffffff, #e0f7fa);
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: #E4F1F2;
+    color: black;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header nav a {
+    color: black;
+    margin: 0 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+header nav a:hover {
+    color: #e0f7fa;
+}
+
+/* Contenido principal */
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+main h1 {
+    color: black;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+main p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+main ol {
+    padding: 0;
+    margin: 0 auto;
+    max-width: 400px;
+    text-align: left;
+}
+
+main ol li {
+    background:#E4F1F2 ;
+    color: black;
+    margin: 0.5rem 0;
+    padding: 0.8rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+main ol li::before {
+    content: "✓"; /* Bullet point */
+    color: #91BF84;
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+/* Botones */
+button {
+    background-color: #44A617;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    margin: 20px 0;
+    display: block;
+    width: 100%;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button:hover {
+    background-color: #91BF84;
+}
+
+/* Enlaces */
+a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: black;
+}
+
+/*PERFIL*/
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input[type="text"], input[type="email"] {
+    padding: 8px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+input[type="file"] {
+    margin-top: 5px;
+}
+
+button {
+    background-color: #00796b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #004d40;
+}
+
+p {
+    font-size: 16px;
+}
+
+
