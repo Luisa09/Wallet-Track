@@ -609,3 +609,29 @@ function saveProfile() {
 
     alert("Perfil actualizado correctamente!");
 }
+
+
+/*Modo osc-cla*/
+
+// Selección de elementos del DOM
+const themeToggle = document.getElementById('theme-toggle');
+const saveButton = document.getElementById('save-settings');
+
+// Verificar si estamos en settings.html
+if (themeToggle && saveButton) {
+    // Cargar el tema desde localStorage
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.body.className = savedTheme;
+    themeToggle.checked = savedTheme === 'dark';
+
+    // Guardar el tema y redirigir
+    saveButton.addEventListener('click', () => {
+        const newTheme = themeToggle.checked ? 'dark' : 'light';
+        localStorage.setItem('theme', newTheme);
+        window.location.href = 'index.html';
+    });
+}
+
+// Aplicar el tema automáticamente en index.html
+const theme = localStorage.getItem('theme') || 'light';
+document.body.className = theme;

@@ -1180,7 +1180,7 @@ a:hover {
 }
 
 /*PERFIL*/
-/* styles.css */
+
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -1210,8 +1210,8 @@ input[type="file"] {
 }
 
 button {
-    background-color: #00796b;
-    color: white;
+    background-color:#98D979;
+    color: black;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
@@ -1219,7 +1219,7 @@ button {
 }
 
 button:hover {
-    background-color: #004d40;
+    background-color: #81D959;
 }
 
 p {
@@ -1227,3 +1227,14 @@ p {
 }
 
 
+/*Modo os-cla*/
+
+body.light {
+    background-color: white;
+    color: black;
+}
+
+body.dark {
+    background-color: black;
+    color: white;
+}
