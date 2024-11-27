@@ -609,7 +609,7 @@ h1.logo a {
 .user-email {
     position: absolute;
     top: 60px; /* Ajusta según la altura deseada */
-    right:20px; /* Ajusta según la separación deseada del borde derecho */
+    left: 900px; /* Ajusta ligeramente hacia la izquierda */
     font-size: 16px;
     color: #333; /* Puedes cambiar el color según tu diseño */
     font-weight: bold;
@@ -630,10 +630,11 @@ h1.logo a {
 #logout-btn {
     color: black;
     text-decoration: none;
-    padding: 10px 40px;
-    background: #98d979 ;
+    padding: 10px 20px;
+    background: #98d979;
     border-radius: 10px;
-    
+    position: relative;
+    left: -20px; /* Mueve el botón hacia la izquierda */
 }
 .hidden {
     display: none;
@@ -1226,15 +1227,209 @@ p {
     font-size: 16px;
 }
 
+/*COnfirg*/
 
-/*Modo os-cla*/
+/* Estilos para el enlace */
+.settings-list a {
+    text-decoration: none; /* Elimina el subrayado */
+    color: #000; /* Color del texto */
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 1px solid #ddd; /* Borde alrededor del enlace */
+    border-radius: 5px;
+}
 
-body.light {
-    background-color: white;
+/* Efecto hover para el enlace */
+.settings-list a:hover {
+    background-color: #f0f0f0; /* Color de fondo al pasar el cursor */
+}
+
+
+/* Estilos para la lista de configuración */
+.settings-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Estilos para la imagen dentro del enlace */
+.settings-list a {
+    display: inline-block;
+}
+
+.config-logo {
+    width: 25px; /* Ajusta el tamaño del logo */
+    height: auto; /* Mantiene la proporción original de la imagen */
+}
+
+/* Estilo para el modo oscuro */
+.dark-mode {
+    background-color: #4f524f;
+    color: #fff;
+}
+
+/* Estilo para tamaños de fuente pequeño, medio y grande */
+body.small-font {
+    font-size: 14px;
+}
+
+body.medium-font {
+    font-size: 16px;
+}
+
+body.large-font {
+    font-size: 18px;
+}
+
+.balance, .transactions {
+    margin-bottom: 2rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+
+ /* Contenedor de la grid */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+    gap: 20px; /* Espaciado entre los elementos */
+    padding: 20px;
+  }
+  
+  /* Estilo de cada item en la grid */
+  .grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #f8f8f8;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .grid-item img {
+    max-width: 50px; /* Tamaño de las imágenes */
+    margin-bottom: 10px;
+  }
+  
+  .grid-item p {
+    font-weight: bold;
     color: black;
+  }
+  
+  .grid-item:hover {
+    transform: scale(1.05); /* Efecto de hover */
+  }
+  
+
+  /*COnsejos y guias*/
+
+  /* Sección de videos */
+.videos {
+    margin-bottom: 40px;
 }
 
-body.dark {
-    background-color: black;
-    color: white;
+.video-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
+
+.video iframe {
+    border-radius: 8px;
+}
+
+/* Sección de guías */
+.guides ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.guides ul li {
+    margin: 10px 0;
+}
+
+.guides ul li a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+.guides ul li a:hover {
+    text-decoration: underline;
+}
+
+/*Proyecciones*/
+  .balance, .transactions {
+    margin-bottom: 2rem;
+    background: black;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  /*mETAS FINANCIERAS*/
+  form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  
+  /* Estilos para la lista de metas */
+  .lista-metas {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .lista-metas li {
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .lista-metas li span {
+    font-weight: bold;
+  }
+  
+  /* Estilos para el gráfico */
+  canvas {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+
+  /*Ingresos*/
+
+  .lista-transacciones ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .lista-transacciones li {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }

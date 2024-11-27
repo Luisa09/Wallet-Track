@@ -16,7 +16,10 @@
     <header class="header">
         <div class="container">
             <!--Logo de la pagina y nombre-->
-            <li><a href="settings.html">Configuración</a></li>
+            <ul class="settings-list">
+                <li><a href="settings.html"><img src="img/config.png" alt="Configuración" class="config-logo"></a></li>
+            </ul>
+                      
             <a href="#img"><img src="img/logo.png" alt="Wallet Logo" class="logo-img"></a>
             <h1 class="logo"><a href="index.html">Wallet Track</a></h1>
             <!--Grupo de botones: Caracteristicas, Sobre nosotros, Contacto, Login-->
@@ -28,10 +31,6 @@
                     <li><a href="login.html" class="nav-button" id="login-register-btn">Login o registro</a></li>
                 </ul>
             </nav>
-            <div id="user-email" class="user-email"></div>
-            <div id="user-info" class="user-info" style="display: none;">
-            <span id="user-email"></span>
-            <button id="logout-btn">Salir</button>
         </div>
     </header>
 
@@ -453,6 +452,33 @@
               Contenedor.classList.remove("Contenedor-cambiado");
           }
         });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtener las configuraciones guardadas en localStorage
+            const darkMode = localStorage.getItem('darkMode') === 'true';  // Verifica si el tema oscuro está activado
+            const fontSize = localStorage.getItem('fontSize') || 'medium';  // Obtiene el tamaño de la fuente
+        
+            // Aplica el tema oscuro si está activado
+            if (darkMode) {
+                document.body.classList.add('dark-mode');  // Agrega la clase dark-mode al body
+            }
+        
+            // Establece el tamaño de la fuente según lo seleccionado
+            document.body.style.fontSize = getFontSize(fontSize);  // Aplica el tamaño de la fuente
+        
+            // Si tienes un selector de tamaño de fuente en el index, también se actualiza su valor
+            document.getElementById('font-size').value = fontSize;
+        });
+        
+        // Función para mapear el tamaño de fuente a valores en px
+        function getFontSize(size) {
+            switch (size) {
+                case 'small': return '14px';
+                case 'medium': return '16px';
+                case 'large': return '18px';
+                default: return '16px';
+            }
+        }
         
     </script>
 </body>

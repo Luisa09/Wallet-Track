@@ -611,27 +611,168 @@ function saveProfile() {
 }
 
 
-/*Modo osc-cla*/
+// Cargar configuraciones almacenadas al cargar la página
+document.addEventListener('DOMContentLoaded', function () {
+    // Aplicar el tema oscuro si está activado
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+    }
 
-// Selección de elementos del DOM
-const themeToggle = document.getElementById('theme-toggle');
-const saveButton = document.getElementById('save-settings');
+    // Aplicar el tamaño de la fuente si está configurado
+    const fontSize = localStorage.getItem('fontSize');
+    if (fontSize) {
+        document.body.style.fontSize = fontSize;
+    }
+});
 
-// Verificar si estamos en settings.html
-if (themeToggle && saveButton) {
-    // Cargar el tema desde localStorage
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.body.className = savedTheme;
-    themeToggle.checked = savedTheme === 'dark';
-
-    // Guardar el tema y redirigir
-    saveButton.addEventListener('click', () => {
-        const newTheme = themeToggle.checked ? 'dark' : 'light';
-        localStorage.setItem('theme', newTheme);
-        window.location.href = 'index.html';
+/*Wallet*/
+// Verifica si el usuario está logueado
+$(document).ready(function () {
+    const userEmail = sessionStorage.getItem("userEmail");
+    if (!userEmail) {
+      window.location.href = "login.html"; // Redirige al login si no hay sesión
+    } else {
+      $("#userEmail").text(userEmail);
+    }
+  
+    // Simulación de datos de la wallet
+    const walletData = {
+      balance: 100.50,
+      transactions: [
+        { date: "2024-11-25", description: "Pago de servicios", amount: -50.00 },
+        { date: "2024-11-24", description: "Transferencia recibida", amount: 200.00 },
+      ],
+    };
+  
+    // Cargar balance y transacciones iniciales
+    $("#totalBalance").text(walletData.balance.toFixed(2));
+    const transactionsList = $("#transactionsList");
+    transactionsList.empty();
+  
+    walletData.transactions.forEach((transaction) => {
+      transactionsList.append(
+        `<li>${transaction.date} - ${transaction.description}: $${transaction.amount.toFixed(2)}</li>`
+      );
     });
-}
+  
+    // Cerrar sesión
+    $("#logoutBtn").on("click", function () {
+      sessionStorage.removeItem("userEmail");
+      window.location.href = "login.html";
+    });
+  
+    // Agregar fondos
+    $("#addFundsBtn").on("click", function () {
+      const amount = parseFloat(prompt("Ingresa el monto a agregar:"));
+      if (!isNaN(amount) && amount > 0) {
+        walletData.balance += amount;
+        walletData.transactions.unshift({
+          date: new Date().toISOString().split("T")[0],
+          description: "Depósito",
+          amount,
+        });
+  
+        // Actualizar UI
+        $("#totalBalance").text(walletData.balance.toFixed(2));
+        transactionsList.prepend(
+          `<li>${new Date().toISOString().split("T")[0]} - Depósito: $${amount.toFixed(2)}</li>`
+        );
+      } else {
+        alert("Monto inválido.");
+      }
+    });
+  });
+  
+/*mETAS financieras*/
+document.addEventListener("DOMContentLoaded", function() {
+    const formMeta = document.getElementById("form-meta");
+    const listaMetas = document.getElementById("lista-metas");
+    const graficoProgreso = document.getElementById("graficoProgreso").getContext("2d");
+  
+    // Arreglo para almacenar las metas
+    let metas = [];
+  
+    // Configuración inicial del gráfico
+    const chart = new Chart(graficoProgreso, {
+      type: "bar",
+      data: {
+        labels: [], // Nombres de las metas
+        datasets: [{
+          label: "Progreso (%)",
+          data: [], // Porcentaje de progreso de cada meta
+          backgroundColor: "#4caf50",
+          borderColor: "#388e3c",
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100 // Máximo 100% de progreso
+          }
+        }
+      }
+    });
+  
+    // Manejar el envío del formulario
+    formMeta.addEventListener("submit", function(event) {
+      event.preventDefault();
+  
+      const metaNombre = document.getElementById("meta-nombre").value;
+      const metaMonto = parseFloat(document.getElementById("meta-monto").value);
+      const metaTiempo = parseInt(document.getElementById("meta-tiempo").value);
+  
+      // Validar datos
+      if (!metaNombre || !metaMonto || !metaTiempo) {
+        alert("Por favor, completa todos los campos.");
+        return;
+      }
+  
+      // Crear una nueva meta
+      const nuevaMeta = {
+        nombre: metaNombre,
+        monto: metaMonto,
+        tiempo: metaTiempo,
+        progreso: 0 // Progreso inicial es 0%
+      };
+  
+      // Agregar meta al arreglo
+      metas.push(nuevaMeta);
+  
+      // Limpiar el formulario
+      formMeta.reset();
+  
+      // Actualizar la lista de metas y el gráfico
+      actualizarListaMetas();
+      actualizarGrafico();
+    });
+  
+    // Función para actualizar la lista de metas
+    function actualizarListaMetas() {
+      listaMetas.innerHTML = ""; // Limpiar la lista
+      metas.forEach((meta, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <strong>${meta.nombre}</strong> - Monto: $${meta.monto.toFixed(2)}, Tiempo: ${meta.tiempo} meses
+          <span>Progreso: ${meta.progreso}%</span>
+        `;
+        listaMetas.appendChild(li);
+      });
+    }
+  
+    // Función para actualizar el gráfico
+    function actualizarGrafico() {
+      chart.data.labels = metas.map(meta => meta.nombre); // Actualizar etiquetas
+      chart.data.datasets[0].data = metas.map(meta => meta.progreso); // Actualizar datos
+      chart.update(); // Refrescar el gráfico
+    }
+  });
+  
 
-// Aplicar el tema automáticamente en index.html
-const theme = localStorage.getItem('theme') || 'light';
-document.body.className = theme;
+
+
+
+  

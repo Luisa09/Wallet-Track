@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estado General</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .resumen {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+    .grafico, .metas, .transacciones {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+    canvas {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Estado General</h2>
+
+    <!-- Resumen de Ingresos y Gastos -->
+    <section class="resumen">
+      <h3>Resumen Financiero</h3>
+      <p>Ingresos Totales: $<span id="ingresosTotales">0</span></p>
+      <p>Gastos Totales: $<span id="gastosTotales">0</span></p>
+      <p>Balance: $<span id="balanceTotal">0</span></p>
+      <div id="alertas"></div>
+    </section>
+
+    <!-- Gráfico de Distribución de Gastos -->
+    <section class="grafico">
+      <h3>Distribución de Gastos</h3>
+      <canvas id="graficoGastos"></canvas>
+    </section>
+
+    <!-- Metas Financieras -->
+    <section class="metas">
+      <h3>Progreso de Metas Financieras</h3>
+      <canvas id="graficoMetas"></canvas>
+    </section>
+
+    <!-- Historial de Transacciones -->
+    <section class="transacciones">
+      <h3>Últimas Transacciones</h3>
+      <ul id="historialTransacciones">
+        <!-- Aquí se mostrarán las transacciones -->
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    // Datos de ejemplo
+    const ingresos = 5000;
+    const gastos = [
+      { categoria: 'Alimentación', monto: 1000, presupuesto: 1500 },
+      { categoria: 'Servicios', monto: 500, presupuesto: 600 },
+      { categoria: 'Coche', monto: 300, presupuesto: 350 },
+      { categoria: 'Internet', monto: 100, presupuesto: 120 },
+      { categoria: 'Otros', monto: 200, presupuesto: 300 }
+    ];
+
+    // Calcular el balance
+    const balance = ingresos - gastos.reduce((total, gasto) => total + gasto.monto, 0);
+
+    // Actualizar el resumen
+    document.getElementById('ingresosTotales').textContent = ingresos;
+    document.getElementById('gastosTotales').textContent = gastos.reduce((total, gasto) => total + gasto.monto, 0);
+    document.getElementById('balanceTotal').textContent = balance;
+
+    // Mostrar alertas si el balance es negativo o si algún gasto supera el presupuesto
+    const alertasElement = document.getElementById('alertas');
+    if (balance < 0) {
+      alertasElement.innerHTML = '<p style="color: red;">¡Alerta! El balance es negativo.</p>';
+    }
+
+    gastos.forEach(gasto => {
+      if (gasto.monto > gasto.presupuesto) {
+        alertasElement.innerHTML += `<p style="color: red;">¡Alerta! El gasto en ${gasto.categoria} ha superado el presupuesto.</p>`;
+      }
+    });
+
+    // Gráfico de distribución de gastos
+    const ctxGastos = document.getElementById('graficoGastos').getContext('2d');
+    const categorias = gastos.map(gasto => gasto.categoria);
+    const montos = gastos.map(gasto => gasto.monto);
+    const colores = ['#FF5733', '#33FF57', '#3357FF', '#FF33F6', '#FF9133'];
+    
+    const graficoGastos = new Chart(ctxGastos, {
+      type: 'pie',
+      data: {
+        labels: categorias,
+        datasets: [{
+          label: 'Distribución de Gastos',
+          data: montos,
+          backgroundColor: colores,
+          borderColor: ['#FFF', '#FFF', '#FFF', '#FFF', '#FFF'],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        onClick: function(event, array) {
+          if (array.length > 0) {
+            const index = array[0]._index;
+            alert(`Categoría: ${categorias[index]}\nMonto: $${montos[index]}`);
+          }
+        }
+      }
+    });
+
+    // Gráfico de progreso de metas (ejemplo)
+    const ctxMetas = document.getElementById('graficoMetas').getContext('2d');
+    new Chart(ctxMetas, {
+      type: 'bar',
+      data: {
+        labels: ['Meta 1', 'Meta 2', 'Meta 3'],
+        datasets: [{
+          label: 'Progreso de Metas',
+          data: [50, 30, 70], // Porcentaje de progreso de cada meta
+          backgroundColor: ['#4CAF50', '#FF9800', '#F44336'],
+          borderColor: ['#FFF', '#FFF', '#FFF'],
+          borderWidth: 1
+        }]
+      }
+    });
+
+    // Historial de Transacciones (simulado)
+    const transacciones = [
+      { tipo: 'Ingreso', monto: 5000, descripcion: 'Salario', fecha: '2024-11-25' },
+      { tipo: 'Gasto', monto: 1000, descripcion: 'Alimentación', fecha: '2024-11-26' },
+      { tipo: 'Gasto', monto: 300, descripcion: 'Coche', fecha: '2024-11-27' }
+    ];
+
+    const historialElement = document.getElementById('historialTransacciones');
+    transacciones.forEach(transaccion => {
+      const li = document.createElement('li');
+      li.textContent = `${transaccion.tipo}: $${transaccion.monto} - ${transaccion.descripcion} (Fecha: ${transaccion.fecha})`;
+      historialElement.appendChild(li);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Proyecciones a Futuro</title>
+  <!-- Incluir Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+</head>
+<body>
+  
+  
+    <header class="header">
+        <div class="container">
+          <a href="index.html"><img src="img/logo.png" alt="Wallet Logo" class="logo-img"></a>
+          <h1 class="logo"><a href="index.html">Wallet Track</a></h1>
+        </div>
+      </header>
+
+
+  <div class="container">
+    <h2>Proyección de Ingresos y Gastos</h2>
+    
+    <!-- Gráfico de Proyecciones -->
+    <section class="proyecciones">
+      <h3>Proyección de Ingresos</h3>
+      <canvas id="proyeccionesChart" width="500" height="400"></canvas>
+    </section>
+
+    <!-- Detalles de las Proyecciones -->
+    <section class="detalles">
+      <br>
+      <br>
+      <h3 style="text-align: center;">Detalles y Análisis</h3>
+      <p style="color: black;">En esta sección, podrás ver cómo tus finanzas podrían evolucionar en los próximos meses, tomando en cuenta los ingresos y gastos actuales. Usa la información para ajustar tus objetivos financieros y planificar de manera más efectiva.</p>
+    </section>
+  </div>
+
+  <script>
+    // Esperar a que se cargue el contenido
+    window.onload = function () {
+      // Obtener el contexto del canvas
+      const ctx = document.getElementById('proyeccionesChart').getContext('2d');
+      
+      // Crear el gráfico
+      const proyeccionesChart = new Chart(ctx, {
+        type: 'line',  // Tipo de gráfico: línea
+        data: {
+          labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],  // Etiquetas de los meses
+          datasets: [{
+            label: 'Ingresos',  // Nombre de la línea
+            data: [1000, 1200, 1500, 1700, 1800],  // Datos de ingresos
+            borderColor: 'rgba(75, 192, 192, 1)',  // Color de la línea
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Color de fondo debajo de la línea
+            fill: true,  // Rellenar el área debajo de la línea
+            tension: 0.4,  // Curvatura suave de la línea
+            borderWidth: 2  // Grosor de la línea
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,  // Iniciar el eje Y desde 0
+              ticks: {
+                stepSize: 200  // Espaciado entre las marcas del eje Y
+              }
+            },
+            x: {
+              grid: {
+                display: false  // Ocultar las líneas de la cuadrícula en el eje X
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'top',  // Ubicación de la leyenda
+              labels: {
+                font: {
+                  size: 14,  // Tamaño de la fuente en la leyenda
+                  family: 'Arial',  // Fuente de la leyenda
+                  weight: 'bold'  // Peso de la fuente de la leyenda
+                }
+              }
+            }
+          },
+          elements: {
+            point: {
+              radius: 5,  // Tamaño de los puntos
+              hoverRadius: 7,  // Tamaño al hacer hover sobre los puntos
+              backgroundColor: 'rgba(75, 192, 192, 1)',  // Color de los puntos
+              borderColor: '#fff',  // Color del borde de los puntos
+              borderWidth: 2  // Grosor del borde de los puntos
+            }
+          }
+        }
+      });
+    };
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recordatorios Financieros</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    /* Panel de notificaciones */
+    .panel-notificaciones {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      max-width: 300px;
+      z-index: 1000;
+    }
+
+    .notificacion {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #f5c6cb;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notificacion.success {
+      background-color: #d4edda;
+      color: #155724;
+      border-color: #c3e6cb;
+    }
+
+    .notificacion.warning {
+      background-color: #fff3cd;
+      color: #856404;
+      border-color: #ffeeba;
+    }
+
+    .notificacion.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-color: #f5c6cb;
+    }
+
+    .notificacion button {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: inherit;
+    }
+
+    .form-finanzas {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-finanzas label,
+    .form-finanzas input,
+    .form-finanzas select,
+    .form-finanzas button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .form-finanzas button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    h3 {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Recordatorios Financieros Automáticos</h1>
+  </header>
+
+  <div class="container">
+    <!-- Panel de Notificaciones -->
+    <div id="panelNotificaciones" class="panel-notificaciones"></div>
+
+    <!-- Mostrar el balance -->
+    <h3>Balance Actual: <span id="balance">500</span> €</h3>
+
+    <!-- Información de gastos programados (para recordar) -->
+    <h4>Recordatorios de Gastos</h4>
+    <ul id="recordatorios">
+      <li>Pago de electricidad - 50 € (Fecha límite: 10 de cada mes)</li>
+      <li>Suscripción a internet - 30 € (Fecha límite: 15 de cada mes)</li>
+      <li>Seguro de coche - 100 € (Fecha límite: 25 de cada mes)</li>
+    </ul>
+
+    <!-- Botón para activar las notificaciones manualmente -->
+    <button onclick="verificarRecordatorios(); verificarBalance();">Ver Notificaciones</button>
+  </div>
+
+  <script>
+    // Variables de estado
+    let balance = 500;  // Ejemplo de balance inicial
+    const presupuestoMaximo = 1000; // Máximo presupuesto para ciertos gastos
+    const gastosProgramados = [
+      { descripcion: 'Pago de electricidad', monto: 50, fechaLimite: '10 de cada mes' },
+      { descripcion: 'Suscripción a internet', monto: 30, fechaLimite: '15 de cada mes' },
+      { descripcion: 'Seguro de coche', monto: 100, fechaLimite: '25 de cada mes' }
+    ];
+
+    // Función para agregar notificaciones
+    function agregarNotificacion(mensaje, tipo) {
+      const notificacion = document.createElement('div');
+      notificacion.classList.add('notificacion', tipo);
+
+      const mensajeElemento = document.createElement('span');
+      mensajeElemento.textContent = mensaje;
+
+      const cerrarBtn = document.createElement('button');
+      cerrarBtn.textContent = '×';
+      cerrarBtn.onclick = function() {
+        notificacion.remove();
+      };
+
+      notificacion.appendChild(mensajeElemento);
+      notificacion.appendChild(cerrarBtn);
+
+      const panel = document.getElementById('panelNotificaciones');
+      panel.appendChild(notificacion);
+
+      // Eliminar la notificación después de 5 segundos
+      setTimeout(() => {
+        notificacion.remove();
+      }, 5000);
+    }
+
+    // Función para manejar notificaciones de recordatorios
+    function verificarRecordatorios() {
+      gastosProgramados.forEach(gasto => {
+        // Condición de notificación si el gasto es importante
+        if (gasto.monto > 50) {
+          agregarNotificacion(`Recuerda que tienes un pago pendiente: ${gasto.descripcion} por ${gasto.monto} €. Vencimiento: ${gasto.fechaLimite}`, 'warning');
+        } else {
+          agregarNotificacion(`¡No olvides tu pago de: ${gasto.descripcion} por ${gasto.monto} €! Fecha límite: ${gasto.fechaLimite}`, 'success');
+        }
+      });
+    }
+
+    // Función para notificar balance bajo
+    function verificarBalance() {
+      if (balance < 100) {
+        agregarNotificacion(`¡Tu balance es bajo! Solo te quedan ${balance} € en tu cuenta.`, 'error');
+      } else if (balance > presupuestoMaximo) {
+        agregarNotificacion(`¡Estás cerca de exceder tu presupuesto de ${presupuestoMaximo} €! Balance actual: ${balance} €`, 'warning');
+      }
+    }
+
+    // Llamar a las funciones de notificaciones cuando se carga la página
+    document.addEventListener('DOMContentLoaded', function() {
+      verificarRecordatorios();
+      verificarBalance();
+    });
+  </script>
+</body>
+</html>

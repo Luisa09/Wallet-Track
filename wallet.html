@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallet</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+        <a href="#img"><img src="img/logo.png" alt="Wallet Logo" class="logo-img"></a>
+        <h1 class="logo"><a href="index.html">Wallet Track</a></h1>
+        <div id="user-email" class="user-email"></div>
+        <div id="user-info" class="user-info" style="display: none;">
+          <span id="user-email"></span>
+          <button id="logout-btn">Salir</button>
+        </div>
+    </div>
+  </header> 
+  
+  <!-- Contenedores principales -->
+  <main>
+    <div class="grid-container">
+      <a href="estado-general.html" class="grid-item">
+        <img src="img/g.png" alt="Estado general">
+        <p>Estado general</p>
+      </a>
+      <a href="ingresos-gastos.html" class="grid-item">
+        <img src="img/c.png" alt="Ingresos y gastos">
+        <p>Ingresos y gastos</p>
+      </a>
+      <a href="proyecciones.html" class="grid-item">
+        <img src="img/p.png" alt="Proyecciones a futuro">
+        <p>Proyecciones a futuro</p>
+      </a>
+      <a href="recuentos.html" class="grid-item">
+        <img src="img/r.png" alt="Recuentos">
+        <p>Recuentos</p>
+      </a>
+      <a href="metas-financieras.html" class="grid-item">
+        <img src="img/d.png" alt="Metas financieras">
+        <p>Metas financieras</p>
+      </a>
+      <a href="ConsejosyGuias.html" class="grid-item">
+        <img src="img/Y.png" alt="Consejos y guías">
+        <p>Consejos y guías</p>
+      </a>
+      <a href="notificaciones.html" class="grid-item">
+        <img src="img/b.png" alt="Notificaciones">
+        <p>Notificaciones</p>
+      </a>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="about" id="nosotros">
+                <h3>Sobre Nosotros</h3>
+                <p>Nos basamos en ayudar a las personas a gestionar su dinero de manera efectiva y segura.</p>
+                <div class="team">
+                    <div class="member">
+                        <img src="img/FotoLuisa.jpg" alt="Miembro 1">
+                        <h4>Desarrolladora</h4>
+                        <p>Luisa Fernanda Vélez Cárdenas</p>
+                    </div>
+                    <div class="member">
+                        <img src="img/WhatsApp Image 2024-10-12 at 4.24.18 PM.jpeg" alt="Miembro 2">
+                        <h4>Ingeniera</h4>
+                        <p>Sara Mellán Cano</p>
+                    </div>
+                    <div class="member">
+                        <img src="img/Foto para el trabajo.jpeg" alt="JJJ">
+                        <h4>Diseñador</h4>
+                        <p>Juan Jose Jaramillo Lopez</p>
+                    </div>
+                </div>
+                <div class="social-media">
+                    <h4>Síguenos</h4>
+                    <a href="https://www.facebook.com/?locale=es_LA" target="_blank">Facebook</a>
+                    <a href="https://x.com/?lang=es" target="_blank">Twitter</a>
+                    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+                </div>
+            </div>
+            <form id="contact-form">
+                <h2>Contáctanos</h2>
+                <div class="form-group">
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Asunto:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje:</label>
+                    <textarea id="message" name="message" rows="2" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Enviar</button>
+            </form>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

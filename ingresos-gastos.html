@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingresos y Gastos</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    form label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    form input, form select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #balance-total {
+      text-align: center;
+      font-size: 1.5em;
+      margin-top: 20px;
+    }
+    #lista-transacciones {
+      margin-top: 20px;
+    }
+    #lista-transacciones li {
+      margin-bottom: 10px;
+    }
+    canvas {
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Gestión de Ingresos y Gastos</h1>
+
+    <!-- Formulario para agregar ingresos y gastos -->
+    <form id="form-transaccion">
+      <label for="tipo-transaccion">Tipo de Transacción</label>
+      <select id="tipo-transaccion" required>
+        <option value="ingreso">Ingreso</option>
+        <option value="gasto">Gasto</option>
+      </select>
+
+      <label for="descripcion-transaccion">Descripción</label>
+      <input type="text" id="descripcion-transaccion" required>
+
+      <label for="categoria-transaccion">Categoría</label>
+      <select id="categoria-transaccion" required>
+        <option value="alimentacion">Alimentación</option>
+        <option value="servicios">Servicios</option>
+        <option value="coche">Coche</option>
+        <option value="mekato">Mekato</option>
+        <option value="internet">Internet</option>
+        <option value="otros">Otros</option>
+      </select>
+
+      <label for="monto-transaccion">Monto</label>
+      <input type="number" id="monto-transaccion" required>
+
+      <button type="submit">Agregar Transacción</button>
+    </form>
+
+    <!-- Lista de transacciones -->
+    <ul id="lista-transacciones"></ul>
+
+    <!-- Balance total -->
+    <div id="balance-total">Balance Total: $0.00</div>
+
+    <!-- Gráfico de distribución de ingresos y gastos -->
+    <canvas id="graficoDistribucion" width="400" height="200"></canvas>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const formTransaccion = document.getElementById("form-transaccion");
+      const listaTransacciones = document.getElementById("lista-transacciones");
+      const balanceTotal = document.getElementById("balance-total");
+      const graficoDistribucion = document.getElementById("graficoDistribucion");
+
+      let transacciones = [];
+
+      // Definir los colores para cada categoría
+      const coloresCategorias = {
+        alimentacion: "#FF6347", // Tomate rojo
+        servicios: "#4682B4", // Azul
+        coche: "#FFD700", // Amarillo
+        mekato: "#32CD32", // Verde
+        internet: "#8A2BE2", // Azul violeta
+        otros: "#FF4500" // Naranja rojo
+      };
+
+      formTransaccion.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        // Obtener los datos del formulario
+        const tipo = document.getElementById("tipo-transaccion").value;
+        const descripcion = document.getElementById("descripcion-transaccion").value;
+        const categoria = document.getElementById("categoria-transaccion").value;
+        const monto = parseFloat(document.getElementById("monto-transaccion").value);
+
+        // Crear una nueva transacción
+        const nuevaTransaccion = { tipo, descripcion, categoria, monto };
+        transacciones.push(nuevaTransaccion);
+
+        // Actualizar la lista de transacciones, balance y gráfico
+        actualizarLista();
+        actualizarBalance();
+        actualizarGrafico();
+      });
+
+      function actualizarLista() {
+        // Limpiar la lista antes de volver a llenarla
+        listaTransacciones.innerHTML = "";
+
+        // Agregar cada transacción a la lista
+        transacciones.forEach((t) => {
+          const li = document.createElement("li");
+          li.textContent = `${t.tipo.toUpperCase()}: ${t.descripcion} - $${t.monto.toFixed(2)} - ${t.categoria.charAt(0).toUpperCase() + t.categoria.slice(1)}`;
+          listaTransacciones.appendChild(li);
+        });
+      }
+
+      function actualizarBalance() {
+        // Calcular el balance total (sumar ingresos, restar gastos)
+        const balance = transacciones.reduce((total, t) => {
+          if (t.tipo === "ingreso") {
+            return total + t.monto;
+          } else if (t.tipo === "gasto") {
+            return total - t.monto;
+          }
+          return total;
+        }, 0);
+
+        // Mostrar el balance actualizado
+        balanceTotal.textContent = `Balance Total: $${balance.toFixed(2)}`;
+      }
+
+      function actualizarGrafico() {
+        // Contar los totales por categoría
+        const totalesCategorias = {
+          alimentacion: 0,
+          servicios: 0,
+          coche: 0,
+          mekato: 0,
+          internet: 0,
+          otros: 0
+        };
+
+        // Sumar los montos de acuerdo a la categoría
+        transacciones.forEach((t) => {
+          if (t.tipo === "gasto") {
+            totalesCategorias[t.categoria] += t.monto;
+          }
+        });
+
+        // Extraer las categorías y sus totales
+        const categorias = Object.keys(totalesCategorias);
+        const totales = categorias.map(categoria => totalesCategorias[categoria]);
+
+        // Si existe un gráfico previo, destrúyelo para actualizarlo
+        if (window.chart) {
+          window.chart.destroy();
+        }
+
+        // Crear un nuevo gráfico de tipo Doughnut
+        window.chart = new Chart(graficoDistribucion, {
+          type: "doughnut",
+          data: {
+            labels: categorias.map(categoria => categoria.charAt(0).toUpperCase() + categoria.slice(1)), // Formatear las categorías
+            datasets: [
+              {
+                data: totales,
+                backgroundColor: categorias.map(categoria => coloresCategorias[categoria]), // Asignar los colores
+                hoverOffset: 4
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: "top",
+              },
+              tooltip: {
+                callbacks: {
+                  label: (context) => `${context.label}: $${context.raw.toFixed(2)}`,
+                },
+              },
+            },
+          },
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

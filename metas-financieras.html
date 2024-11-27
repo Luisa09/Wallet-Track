@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metas Financieras</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <a href="index.html"><img src="img/logo.png" alt="Wallet Logo" class="logo-img"></a>
+      <h1 class="logo"><a href="index.html">Wallet Track</a></h1>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <!-- Formulario para agregar metas -->
+      <section class="agregar-meta" >
+        <h2>Agregar Meta Financiera</h2>
+        <form id="form-meta">
+          <label for="meta-nombre">Nombre de la Meta</label>
+          <input type="text" id="meta-nombre" name="meta-nombre" required>
+
+          <label for="meta-monto">Monto Objetivo</label>
+          <input type="number" id="meta-monto" name="meta-monto" required>
+
+          <label for="meta-tiempo">Tiempo para alcanzar la meta (meses)</label>
+          <input type="number" id="meta-tiempo" name="meta-tiempo" required>
+
+          <button type="submit">Agregar Meta</button>
+        </form>
+      </section>
+
+      <!-- Lista de metas -->
+      <section class="lista-metas">
+        <h2>Mis Metas Financieras</h2>
+        <ul id="lista-metas">
+          <!-- Las metas se agregarán aquí dinámicamente -->
+        </ul>
+      </section>
+
+      <!-- Gráfico de progreso de metas -->
+      <section class="grafico">
+        <h3>Progreso de Metas</h3>
+        <canvas id="graficoProgreso" width="400" height="200"></canvas>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const formMeta = document.getElementById("form-meta");
+      const listaMetas = document.getElementById("lista-metas");
+      const graficoProgreso = document.getElementById("graficoProgreso").getContext("2d");
+
+      // Arreglo para almacenar las metas
+      let metas = [];
+
+      // Configuración inicial del gráfico
+      const chart = new Chart(graficoProgreso, {
+        type: "bar",
+        data: {
+          labels: [], // Nombres de las metas
+          datasets: [{
+            label: "Progreso (%)",
+            data: [], // Porcentaje de progreso de cada meta
+            backgroundColor: "#4caf50",
+            borderColor: "#388e3c",
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100 // Máximo 100% de progreso
+            }
+          }
+        }
+      });
+
+      // Manejar el envío del formulario
+      formMeta.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const metaNombre = document.getElementById("meta-nombre").value;
+        const metaMonto = parseFloat(document.getElementById("meta-monto").value);
+        const metaTiempo = parseInt(document.getElementById("meta-tiempo").value);
+
+        // Validar datos
+        if (!metaNombre || !metaMonto || !metaTiempo) {
+          alert("Por favor, completa todos los campos.");
+          return;
+        }
+
+        // Crear una nueva meta
+        const nuevaMeta = {
+          nombre: metaNombre,
+          monto: metaMonto,
+          tiempo: metaTiempo,
+          progreso: 0 // Progreso inicial es 0%
+        };
+
+        // Agregar meta al arreglo
+        metas.push(nuevaMeta);
+
+        // Limpiar el formulario
+        formMeta.reset();
+
+        // Actualizar la lista de metas y el gráfico
+        actualizarListaMetas();
+        actualizarGrafico();
+      });
+
+      // Función para actualizar la lista de metas
+      function actualizarListaMetas() {
+        listaMetas.innerHTML = ""; // Limpiar la lista
+        metas.forEach((meta, index) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <strong>${meta.nombre}</strong> - Monto: $${meta.monto.toFixed(2)}, Tiempo: ${meta.tiempo} meses
+            <span>Progreso: ${meta.progreso}%</span>
+          `;
+          listaMetas.appendChild(li);
+        });
+      }
+
+      // Función para actualizar el gráfico
+      function actualizarGrafico() {
+        chart.data.labels = metas.map(meta => meta.nombre); // Actualizar etiquetas
+        chart.data.datasets[0].data = metas.map(meta => meta.progreso); // Actualizar datos
+        chart.update(); // Refrescar el gráfico
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recuento General</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+    }
+    .recuento-section {
+      margin-top: 30px;
+    }
+    .recuento {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+    .chart-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Recuento General</h1>
+
+  <!-- Sección de recuento de ingresos y gastos -->
+  <section class="recuento-section">
+    <h2>Resumen Financiero</h2>
+    <div class="recuento">
+      <span>Total Ingresos: <span id="total-ingresos">0</span></span>
+      <span>Total Gastos: <span id="total-gastos">0</span></span>
+      <span>Balance: <span id="balance">0</span></span>
+    </div>
+  </section>
+
+  <!-- Sección de metas -->
+  <section class="recuento-section">
+    <h2>Metas Financieras</h2>
+    <div class="recuento">
+      <span>Metas Alcanzadas: <span id="metas-alcanzadas">0</span></span>
+      <span>Metas Totales: <span id="metas-totales">0</span></span>
+    </div>
+  </section>
+
+  <!-- Gráfico de ingresos y gastos -->
+  <section class="chart-container">
+    <h3>Gráfico de Ingresos y Gastos</h3>
+    <canvas id="grafico-ingresos-gastos" width="400" height="200"></canvas>
+  </section>
+</div>
+
+<script>
+  // Datos de ejemplo (puedes reemplazarlos con datos dinámicos)
+  const ingresos = [
+    { cantidad: 1000, categoria: "Salario" },
+    { cantidad: 200, categoria: "Venta" },
+  ];
+  
+  const gastos = [
+    { cantidad: 500, categoria: "Alimentación" },
+    { cantidad: 150, categoria: "Servicios" },
+    { cantidad: 100, categoria: "Coche" },
+    { cantidad: 50, categoria: "Internet" },
+  ];
+  
+  const metas = [
+    { nombre: "Ahorrar para vacaciones", completada: true },
+    { nombre: "Comprar coche", completada: false },
+  ];
+  
+  // Función para calcular el total de ingresos y gastos
+  function calcularTotales() {
+    const totalIngresos = ingresos.reduce((total, ingreso) => total + ingreso.cantidad, 0);
+    const totalGastos = gastos.reduce((total, gasto) => total + gasto.cantidad, 0);
+    const balance = totalIngresos - totalGastos;
+    
+    // Mostrar los totales en el HTML
+    document.getElementById('total-ingresos').textContent = totalIngresos;
+    document.getElementById('total-gastos').textContent = totalGastos;
+    document.getElementById('balance').textContent = balance;
+  }
+  
+  // Función para calcular el número de metas alcanzadas
+  function calcularMetas() {
+    const metasAlcanzadas = metas.filter(meta => meta.completada).length;
+    const metasTotales = metas.length;
+    
+    // Mostrar los recuentos de metas en el HTML
+    document.getElementById('metas-alcanzadas').textContent = metasAlcanzadas;
+    document.getElementById('metas-totales').textContent = metasTotales;
+  }
+  
+  // Función para mostrar el gráfico de ingresos y gastos
+  function mostrarGrafico() {
+    const ingresosCantidad = ingresos.reduce((total, ingreso) => total + ingreso.cantidad, 0);
+    const gastosCantidad = gastos.reduce((total, gasto) => total + gasto.cantidad, 0);
+    
+    const ctx = document.getElementById('grafico-ingresos-gastos').getContext('2d');
+    const grafico = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Ingresos', 'Gastos'],
+        datasets: [{
+          data: [ingresosCantidad, gastosCantidad],
+          backgroundColor: ['#4caf50', '#f44336'], // Verde para ingresos, rojo para gastos
+          borderColor: ['#388e3c', '#d32f2f'],
+          borderWidth: 1
+        }]
+      }
+    });
+  }
+  
+  // Ejecutar las funciones de recuento y gráfico al cargar la página
+  window.onload = function() {
+    calcularTotales();
+    calcularMetas();
+    mostrarGrafico();
+  };
+</script>
+
+</body>
+</html>
