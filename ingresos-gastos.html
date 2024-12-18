@@ -3,15 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
   <title>Ingresos y Gastos</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
+
     .container {
       width: 80%;
       margin: 20px auto;
@@ -66,7 +62,13 @@
   </style>
 </head>
 <body>
-
+  <header class="header">
+    <a href="wallet.html"> Volver</a>
+    <div class="container">
+      <a href="index.html"><img src="img/logo.png" alt="Wallet Logo" class="logo-img"></a>
+      <h1 class="logo"><a href="index.html">Wallet Track</a></h1>
+    </div>
+  </header>
   <div class="container">
     <h1>Gestión de Ingresos y Gastos</h1>
 
@@ -110,6 +112,8 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const formTransaccion = document.getElementById("form-transaccion");
+      const tipoTransaccion = document.getElementById("tipo-transaccion");
+      const categoriaTransaccion = document.getElementById("categoria-transaccion");
       const listaTransacciones = document.getElementById("lista-transacciones");
       const balanceTotal = document.getElementById("balance-total");
       const graficoDistribucion = document.getElementById("graficoDistribucion");
@@ -123,16 +127,59 @@
         coche: "#FFD700", // Amarillo
         mekato: "#32CD32", // Verde
         internet: "#8A2BE2", // Azul violeta
-        otros: "#FF4500" // Naranja rojo
+        otros: "#FF4500", // Naranja rojo
+        salario: "#008080" // Verde azulado para salario
       };
+
+      // Función para actualizar las opciones de categoría según el tipo de transacción
+      function actualizarCategorias() {
+        // Limpiar las opciones actuales
+        categoriaTransaccion.innerHTML = "";
+
+        if (tipoTransaccion.value === "ingreso") {
+          // Añadir la opción de Salario y otras categorías para Ingreso
+          const opcionesIngreso = [
+            { value: "salario", label: "Salario" },
+            { value: "otros", label: "Otros" },
+          ];
+          opcionesIngreso.forEach(opcion => {
+            const optionElement = document.createElement("option");
+            optionElement.value = opcion.value;
+            optionElement.textContent = opcion.label;
+            categoriaTransaccion.appendChild(optionElement);
+          });
+        } else {
+          // Añadir las categorías para Gasto
+          const opcionesGasto = [
+            { value: "alimentacion", label: "Alimentación" },
+            { value: "servicios", label: "Servicios" },
+            { value: "coche", label: "Coche" },
+            { value: "mekato", label: "Mekato" },
+            { value: "internet", label: "Internet" },
+            { value: "otros", label: "Otros" },
+          ];
+          opcionesGasto.forEach(opcion => {
+            const optionElement = document.createElement("option");
+            optionElement.value = opcion.value;
+            optionElement.textContent = opcion.label;
+            categoriaTransaccion.appendChild(optionElement);
+          });
+        }
+      }
+
+      // Llamar a la función al cargar la página para establecer las categorías correctas
+      actualizarCategorias();
+
+      // Escuchar cambios en el tipo de transacción
+      tipoTransaccion.addEventListener("change", actualizarCategorias);
 
       formTransaccion.addEventListener("submit", (event) => {
         event.preventDefault();
 
         // Obtener los datos del formulario
-        const tipo = document.getElementById("tipo-transaccion").value;
+        const tipo = tipoTransaccion.value;
         const descripcion = document.getElementById("descripcion-transaccion").value;
-        const categoria = document.getElementById("categoria-transaccion").value;
+        const categoria = categoriaTransaccion.value;
         const monto = parseFloat(document.getElementById("monto-transaccion").value);
 
         // Crear una nueva transacción
@@ -146,10 +193,7 @@
       });
 
       function actualizarLista() {
-        // Limpiar la lista antes de volver a llenarla
         listaTransacciones.innerHTML = "";
-
-        // Agregar cada transacción a la lista
         transacciones.forEach((t) => {
           const li = document.createElement("li");
           li.textContent = `${t.tipo.toUpperCase()}: ${t.descripcion} - $${t.monto.toFixed(2)} - ${t.categoria.charAt(0).toUpperCase() + t.categoria.slice(1)}`;
@@ -158,56 +202,46 @@
       }
 
       function actualizarBalance() {
-        // Calcular el balance total (sumar ingresos, restar gastos)
         const balance = transacciones.reduce((total, t) => {
-          if (t.tipo === "ingreso") {
-            return total + t.monto;
-          } else if (t.tipo === "gasto") {
-            return total - t.monto;
-          }
-          return total;
+          return t.tipo === "ingreso" ? total + t.monto : total - t.monto;
         }, 0);
-
-        // Mostrar el balance actualizado
         balanceTotal.textContent = `Balance Total: $${balance.toFixed(2)}`;
       }
 
       function actualizarGrafico() {
-        // Contar los totales por categoría
         const totalesCategorias = {
           alimentacion: 0,
           servicios: 0,
           coche: 0,
           mekato: 0,
           internet: 0,
-          otros: 0
+          otros: 0,
+          salario: 0
         };
 
-        // Sumar los montos de acuerdo a la categoría
         transacciones.forEach((t) => {
           if (t.tipo === "gasto") {
             totalesCategorias[t.categoria] += t.monto;
+          } else if (t.tipo === "ingreso" && t.categoria === "salario") {
+            totalesCategorias.salario += t.monto;
           }
         });
 
-        // Extraer las categorías y sus totales
         const categorias = Object.keys(totalesCategorias);
         const totales = categorias.map(categoria => totalesCategorias[categoria]);
 
-        // Si existe un gráfico previo, destrúyelo para actualizarlo
         if (window.chart) {
           window.chart.destroy();
         }
 
-        // Crear un nuevo gráfico de tipo Doughnut
         window.chart = new Chart(graficoDistribucion, {
           type: "doughnut",
           data: {
-            labels: categorias.map(categoria => categoria.charAt(0).toUpperCase() + categoria.slice(1)), // Formatear las categorías
+            labels: categorias.map(categoria => categoria.charAt(0).toUpperCase() + categoria.slice(1)),
             datasets: [
               {
                 data: totales,
-                backgroundColor: categorias.map(categoria => coloresCategorias[categoria]), // Asignar los colores
+                backgroundColor: categorias.map(categoria => coloresCategorias[categoria]),
                 hoverOffset: 4
               },
             ],
@@ -215,12 +249,10 @@
           options: {
             responsive: true,
             plugins: {
-              legend: {
-                position: "top",
-              },
+              legend: { position: "top" },
               tooltip: {
                 callbacks: {
-                  label: (context) => `${context.label}: $${context.raw.toFixed(2)}`,
+                  label: (context) => `${context.label}: $${context.raw.toFixed(2)}`
                 },
               },
             },

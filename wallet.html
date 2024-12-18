@@ -52,6 +52,10 @@
         <img src="img/b.png" alt="Notificaciones">
         <p>Notificaciones</p>
       </a>
+      <a href="configuracion.html" class="grid-item">
+        <img src="img/config.png" alt="Configuracion">
+        <p>Configuracion</p>
+      </a>
     </div>
   </main>
   
@@ -85,28 +89,37 @@
                     <a href="https://www.instagram.com/" target="_blank">Instagram</a>
                 </div>
             </div>
-            <form id="contact-form">
-                <h2>Contáctanos</h2>
-                <div class="form-group">
-                    <label for="name">Nombre:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="subject">Asunto:</label>
-                    <input type="text" id="subject" name="subject" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">Mensaje:</label>
-                    <textarea id="message" name="message" rows="2" required></textarea>
-                </div>
-                <button type="submit" class="btn-primary">Enviar</button>
-            </form>
         </div>
     </div>
-</footer>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Leer las configuraciones de localStorage
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        const fontSize = localStorage.getItem('fontSize') || 'medium'; // Si no hay tamaño de fuente, usar 'medium'
+
+        // Aplicar el modo oscuro si está activado
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode-wallet');
+        } else {
+            document.body.classList.remove('dark-mode-wallet');
+        }
+
+        // Aplicar el tamaño de fuente
+        document.body.style.fontSize = getFontSize(fontSize);
+    });
+
+    // Función para obtener el tamaño de fuente
+    function getFontSize(size) {
+        switch (size) {
+            case 'small': return '14px';
+            case 'medium': return '16px';
+            case 'large': return '18px';
+            default: return '16px'; // Valor predeterminado
+        }
+    }
+  </script>
+
 </body>
 </html>

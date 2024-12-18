@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Pago</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px;
+        }
+
+        /* Botón de volver */
+        .back-button {
+            display: block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #333;
+        }
+
+        /* Formulario de pago */
+        .payment-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .payment-form label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .payment-form input,
+        .payment-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .payment-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: green;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .payment-form button:hover {
+            background-color: #44A617;
+        }
+
+        /* Iconos de tarjetas */
+        .card-icons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .card-icons img {
+            width: 40px;
+            height: auto;
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-icons img.active {
+            opacity: 1;
+        }
+
+        /* Factura */
+        .invoice {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .invoice h3 {
+            margin-top: 0;
+        }
+
+        .invoice p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Botón de volver -->
+        <a href="index.html" class="back-button">Volver</a>
+
+        <!-- Formulario de pago -->
+        <div class="payment-form">
+            <h2>Información de facturación</h2>
+            <form id="paymentForm" onsubmit="return processPayment(event)">
+                <label for="full-name">Nombre completo</label>
+                <input type="text" id="full-name" placeholder="Por favor ingresa tu nombre completo" required>
+
+                <label for="credit-card">Número de tarjeta de crédito</label>
+                <input 
+                    type="text" 
+                    id="credit-card" 
+                    maxlength="19" 
+                    placeholder="0000-0000-0000-0000" 
+                    required 
+                    oninput="updateCardIcon()"
+                >
+
+                <div class="card-icons">
+                    <img id="visa-icon" src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa">
+                    <img id="mastercard-icon" src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="MasterCard">
+                    <img id="amex-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" alt="American Express">
+                </div>
+
+                <label for="security-code">Código de seguridad</label>
+                <input type="text" id="security-code" maxlength="4" placeholder="Código de 3-4 dígitos" required>
+
+                <label for="expiration-date">Fecha de expiración</label>
+                <div style="display: flex; gap: 10px;">
+                    <select id="expiration-month" required>
+                        <option value="" disabled selected>Mes</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                    <select id="expiration-year" required>
+                        <option value="" disabled selected>Año</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                    </select>
+                </div>
+
+                <label for="address">Dirección</label>
+                <input type="text" id="address" placeholder="Por favor ingresa tu dirección" required>
+
+                <label for="city">Ciudad</label>
+                <input type="text" id="city" placeholder="Por favor ingresa tu ciudad" required>
+
+                <button type="submit">Pagar</button>
+            </form>
+        </div>
+
+        <!-- Contenedor de factura -->
+        <div id="invoice" class="invoice" style="display: none;">
+            <h3>Factura</h3>
+            <p id="invoice-details"></p>
+        </div>
+    </div>
+
+    <script>
+        // Actualiza el icono de tarjeta según el número ingresado
+        function updateCardIcon() {
+            const creditCardInput = document.getElementById('credit-card').value;
+            const visaIcon = document.getElementById('visa-icon');
+            const mastercardIcon = document.getElementById('mastercard-icon');
+            const amexIcon = document.getElementById('amex-icon');
+
+            visaIcon.classList.remove('active');
+            mastercardIcon.classList.remove('active');
+            amexIcon.classList.remove('active');
+
+            if (creditCardInput.startsWith('4')) {
+                visaIcon.classList.add('active');
+            } else if (creditCardInput.startsWith('5') || /^222[1-9]|22[3-9]\d|2[3-6]\d{2}|27[0-1]\d|2720/.test(creditCardInput)) {
+                mastercardIcon.classList.add('active');
+            } else if (creditCardInput.startsWith('3')) {
+                amexIcon.classList.add('active');
+            }
+        }
+
+        // Obtiene el nombre de la tarjeta activa
+        function getActiveCard() {
+            const visaIcon = document.getElementById('visa-icon').classList.contains('active');
+            const mastercardIcon = document.getElementById('mastercard-icon').classList.contains('active');
+            const amexIcon = document.getElementById('amex-icon').classList.contains('active');
+
+            if (visaIcon) return 'Visa';
+            if (mastercardIcon) return 'MasterCard';
+            if (amexIcon) return 'American Express';
+            return 'Desconocida';
+        }
+
+        // Procesa el pago y genera la factura
+        function processPayment(event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById('full-name').value;
+            const creditCard = document.getElementById('credit-card').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const cardLastDigits = creditCard.slice(-4);
+            const cardType = getActiveCard();
+
+            const invoiceDetails = `
+                Nombre: ${fullName}<br>
+                Dirección: ${address}, ${city}<br>
+                Tarjeta: ${cardType} (**** **** **** ${cardLastDigits})<br>
+                Total: $1000.00
+            `;
+
+            document.getElementById('invoice-details').innerHTML = invoiceDetails;
+            document.getElementById('invoice').style.display = 'block';
+
+            // Opcional: Limpia el formulario después del pago
+            document.getElementById('paymentForm').reset();
+            updateCardIcon();
+        }
+    </script>
+</body>
+</html>

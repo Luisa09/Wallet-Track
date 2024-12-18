@@ -6,26 +6,32 @@
   <title>Recordatorios Financieros</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
       margin: 0;
       padding: 0;
+      color: #333;
     }
 
     header {
-      background-color: #333;
+      background-color: #4CAF50;
       color: white;
-      padding: 10px 0;
+      padding: 15px 0;
       text-align: center;
+      font-size: 24px;
+      font-weight: bold;
     }
 
     .container {
       max-width: 1200px;
       margin: 20px auto;
       padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
-    /* Panel de notificaciones */
+    /* Estilos para el panel de notificaciones */
     .panel-notificaciones {
       position: fixed;
       top: 20px;
@@ -37,13 +43,14 @@
     .notificacion {
       background-color: #f8d7da;
       color: #721c24;
-      padding: 10px;
+      padding: 12px;
       margin-bottom: 10px;
       border: 1px solid #f5c6cb;
-      border-radius: 4px;
+      border-radius: 5px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 16px;
     }
 
     .notificacion.success {
@@ -67,17 +74,17 @@
     .notificacion button {
       background: transparent;
       border: none;
-      font-size: 18px;
+      font-size: 20px;
       cursor: pointer;
       color: inherit;
     }
 
     .form-finanzas {
-      margin-top: 20px;
+      margin-top: 30px;
       padding: 20px;
       background-color: #ffffff;
       border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .form-finanzas label,
@@ -85,41 +92,78 @@
     .form-finanzas select,
     .form-finanzas button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin: 10px 0;
       border-radius: 5px;
       border: 1px solid #ccc;
+      font-size: 16px;
     }
 
     .form-finanzas button {
       background-color: #4CAF50;
       color: white;
       cursor: pointer;
+      font-weight: bold;
     }
 
-    h3 {
+    .form-finanzas button:hover {
+      background-color: #45a049;
+    }
+
+    h3, h4 {
       color: #333;
+      font-size: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      background-color: #f9f9f9;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    a {
+      text-decoration: none;
+      color: #4CAF50;
+      font-size: 16px;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>Recordatorios Financieros Automáticos</h1>
+    Recordatorios Financieros Automáticos
   </header>
 
   <div class="container">
     <!-- Panel de Notificaciones -->
     <div id="panelNotificaciones" class="panel-notificaciones"></div>
 
+    <a href="wallet.html">Volver</a>
+
     <!-- Mostrar el balance -->
-    <h3>Balance Actual: <span id="balance">500</span> €</h3>
+    <h3>Balance Actual: <span id="balance">2'000,000</span> pesos</h3>
 
     <!-- Información de gastos programados (para recordar) -->
     <h4>Recordatorios de Gastos</h4>
     <ul id="recordatorios">
-      <li>Pago de electricidad - 50 € (Fecha límite: 10 de cada mes)</li>
-      <li>Suscripción a internet - 30 € (Fecha límite: 15 de cada mes)</li>
-      <li>Seguro de coche - 100 € (Fecha límite: 25 de cada mes)</li>
+      <li>Pago de servicios 150,000 pesos (Fecha límite: 10 de cada mes)</li>
+      <li>Suscripción a internet - 80,000 pesos (Fecha límite: 15 de cada mes)</li>
+      <li>Seguro de coche - 100,000 pesos (Fecha límite: 25 de cada mes)</li>
     </ul>
 
     <!-- Botón para activar las notificaciones manualmente -->
@@ -128,12 +172,12 @@
 
   <script>
     // Variables de estado
-    let balance = 500;  // Ejemplo de balance inicial
-    const presupuestoMaximo = 1000; // Máximo presupuesto para ciertos gastos
+    let balance = 2000000;  // Ejemplo de balance inicial en pesos
+    const presupuestoMaximo = 3000000; // Máximo presupuesto para ciertos gastos en pesos
     const gastosProgramados = [
-      { descripcion: 'Pago de electricidad', monto: 50, fechaLimite: '10 de cada mes' },
-      { descripcion: 'Suscripción a internet', monto: 30, fechaLimite: '15 de cada mes' },
-      { descripcion: 'Seguro de coche', monto: 100, fechaLimite: '25 de cada mes' }
+      { descripcion: 'Pago de electricidad', monto: 150000, fechaLimite: '10 de cada mes' },
+      { descripcion: 'Suscripción a internet', monto: 80000, fechaLimite: '15 de cada mes' },
+      { descripcion: 'Seguro de coche', monto: 100000, fechaLimite: '25 de cada mes' }
     ];
 
     // Función para agregar notificaciones
@@ -166,20 +210,20 @@
     function verificarRecordatorios() {
       gastosProgramados.forEach(gasto => {
         // Condición de notificación si el gasto es importante
-        if (gasto.monto > 50) {
-          agregarNotificacion(`Recuerda que tienes un pago pendiente: ${gasto.descripcion} por ${gasto.monto} €. Vencimiento: ${gasto.fechaLimite}`, 'warning');
+        if (gasto.monto > 50000) {
+          agregarNotificacion(`Recuerda que tienes un pago pendiente: ${gasto.descripcion} por ${gasto.monto} pesos. Vencimiento: ${gasto.fechaLimite}`, 'warning');
         } else {
-          agregarNotificacion(`¡No olvides tu pago de: ${gasto.descripcion} por ${gasto.monto} €! Fecha límite: ${gasto.fechaLimite}`, 'success');
+          agregarNotificacion(`¡No olvides tu pago de: ${gasto.descripcion} por ${gasto.monto} pesos! Fecha límite: ${gasto.fechaLimite}`, 'success');
         }
       });
     }
 
     // Función para notificar balance bajo
     function verificarBalance() {
-      if (balance < 100) {
-        agregarNotificacion(`¡Tu balance es bajo! Solo te quedan ${balance} € en tu cuenta.`, 'error');
+      if (balance < 100000) {
+        agregarNotificacion(`¡Tu balance es bajo! Solo te quedan ${balance} pesos en tu cuenta.`, 'error');
       } else if (balance > presupuestoMaximo) {
-        agregarNotificacion(`¡Estás cerca de exceder tu presupuesto de ${presupuestoMaximo} €! Balance actual: ${balance} €`, 'warning');
+        agregarNotificacion(`¡Estás cerca de exceder tu presupuesto de ${presupuestoMaximo} pesos! Balance actual: ${balance} pesos`, 'warning');
       }
     }
 

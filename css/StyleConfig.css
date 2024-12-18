@@ -1,0 +1,17 @@
+/* Estilos para el modo oscuro */
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Estilo para el modo oscuro específicamente en wallet.html */
+body.dark-mode-wallet {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Otros estilos de modo oscuro según lo que quieras modificar, por ejemplo, botones o enlaces */
+button.dark-mode, select.dark-mode {
+    background-color: #555;
+    color: #fff;
+}

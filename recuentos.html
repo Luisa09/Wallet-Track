@@ -8,13 +8,25 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
     }
     .container {
       width: 80%;
       margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2, h3 {
+      color: #333;
     }
     .recuento-section {
       margin-top: 30px;
+      padding: 15px;
+      background-color: #f0f0f0;
+      border-radius: 8px;
     }
     .recuento {
       display: flex;
@@ -22,25 +34,63 @@
       font-size: 18px;
       margin-bottom: 10px;
     }
+    .recuento span {
+      font-weight: bold;
+    }
     .chart-container {
       width: 100%;
       display: flex;
       justify-content: center;
       margin-top: 30px;
     }
+    .card {
+      padding: 15px;
+      background-color: #e8f5e9;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card span {
+      font-size: 16px;
+    }
+    .icon {
+      margin-right: 10px;
+    }
+    .button {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #388e3c;
+    }
   </style>
 </head>
 <body>
 
 <div class="container">
+  <a href="wallet.html" class="button">Volver</a>
+
   <h1>Recuento General</h1>
 
   <!-- Sección de recuento de ingresos y gastos -->
   <section class="recuento-section">
     <h2>Resumen Financiero</h2>
-    <div class="recuento">
+    <div class="card">
+      <div class="icon">💰</div>
       <span>Total Ingresos: <span id="total-ingresos">0</span></span>
+    </div>
+    <div class="card">
+      <div class="icon">📉</div>
       <span>Total Gastos: <span id="total-gastos">0</span></span>
+    </div>
+    <div class="card">
+      <div class="icon">⚖️</div>
       <span>Balance: <span id="balance">0</span></span>
     </div>
   </section>
@@ -56,13 +106,12 @@
 
   <!-- Gráfico de ingresos y gastos -->
   <section class="chart-container">
-    <h3>Gráfico de Ingresos y Gastos</h3>
     <canvas id="grafico-ingresos-gastos" width="400" height="200"></canvas>
   </section>
 </div>
 
 <script>
-  // Datos de ejemplo (puedes reemplazarlos con datos dinámicos)
+  // Datos de ejemplo
   const ingresos = [
     { cantidad: 1000, categoria: "Salario" },
     { cantidad: 200, categoria: "Venta" },
@@ -86,7 +135,6 @@
     const totalGastos = gastos.reduce((total, gasto) => total + gasto.cantidad, 0);
     const balance = totalIngresos - totalGastos;
     
-    // Mostrar los totales en el HTML
     document.getElementById('total-ingresos').textContent = totalIngresos;
     document.getElementById('total-gastos').textContent = totalGastos;
     document.getElementById('balance').textContent = balance;
@@ -97,7 +145,6 @@
     const metasAlcanzadas = metas.filter(meta => meta.completada).length;
     const metasTotales = metas.length;
     
-    // Mostrar los recuentos de metas en el HTML
     document.getElementById('metas-alcanzadas').textContent = metasAlcanzadas;
     document.getElementById('metas-totales').textContent = metasTotales;
   }
@@ -108,13 +155,13 @@
     const gastosCantidad = gastos.reduce((total, gasto) => total + gasto.cantidad, 0);
     
     const ctx = document.getElementById('grafico-ingresos-gastos').getContext('2d');
-    const grafico = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'pie',
       data: {
         labels: ['Ingresos', 'Gastos'],
         datasets: [{
           data: [ingresosCantidad, gastosCantidad],
-          backgroundColor: ['#4caf50', '#f44336'], // Verde para ingresos, rojo para gastos
+          backgroundColor: ['#4caf50', '#f44336'],
           borderColor: ['#388e3c', '#d32f2f'],
           borderWidth: 1
         }]
@@ -122,7 +169,7 @@
     });
   }
   
-  // Ejecutar las funciones de recuento y gráfico al cargar la página
+  // Ejecutar funciones al cargar la página
   window.onload = function() {
     calcularTotales();
     calcularMetas();

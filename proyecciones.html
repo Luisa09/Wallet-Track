@@ -5,20 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/styles.css">
   <title>Proyecciones a Futuro</title>
-  <!-- Incluir Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+  <style>
+    /* Estilos para la tabla */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    th {
+      background-color: #2c3e50;
+      color: #fff;
+      text-transform: uppercase;
+    }
+
+    td {
+      background-color: #ecf0f1;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f4f4f4;
+    }
+
+    tr:hover td {
+      background-color: #bdc3c7;
+    }
+
+    .tabla-resumen h3 {
+      text-align: center;
+      font-size: 24px;
+      color: #34495e;
+      margin-bottom: 20px;
+    }
+
+    /* Estilo para la diferencia (positivo o negativo) */
+    .diferencia {
+      font-weight: bold;
+    }
+
+    .positivo {
+      color: green;
+    }
+
+    .negativo {
+      color: red;
+    }
+  </style>
 </head>
 <body>
-  
-  
-    <header class="header">
-        <div class="container">
-          <a href="index.html"><img src="img/logo.png" alt="Wallet Logo" class="logo-img"></a>
-          <h1 class="logo"><a href="index.html">Wallet Track</a></h1>
-        </div>
-      </header>
-
+  <header class="header">
+    <a href="wallet.html"> Volver</a>
+    <div class="container">
+      <a href="index.html"><img src="img/logo.png" alt="Wallet Logo" class="logo-img"></a>
+      <h1 class="logo"><a href="index.html">Wallet Track</a></h1>
+    </div>
+  </header>
 
   <div class="container">
     <h2>Proyección de Ingresos y Gastos</h2>
@@ -31,33 +80,106 @@
 
     <!-- Detalles de las Proyecciones -->
     <section class="detalles">
-      <br>
-      <br>
+      <br><br>
       <h3 style="text-align: center;">Detalles y Análisis</h3>
       <p style="color: black;">En esta sección, podrás ver cómo tus finanzas podrían evolucionar en los próximos meses, tomando en cuenta los ingresos y gastos actuales. Usa la información para ajustar tus objetivos financieros y planificar de manera más efectiva.</p>
+    </section>
+
+    <!-- Resumen de Ingresos y Gastos -->
+    <section class="tabla-resumen">
+      <h3>Resumen de Ingresos y Gastos</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Mes</th>
+            <th>Ingresos</th>
+            <th>Gastos</th>
+            <th>Diferencia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Enero</td>
+            <td>$1200</td>
+            <td>$800</td>
+            <td class="diferencia positivo">+$400</td>
+          </tr>
+          <tr>
+            <td>Febrero</td>
+            <td>$1300</td>
+            <td>$700</td>
+            <td class="diferencia positivo">+$600</td>
+          </tr>
+          <tr>
+            <td>Marzo</td>
+            <td>$1400</td>
+            <td>$900</td>
+            <td class="diferencia positivo">+$500</td>
+          </tr>
+          <tr>
+            <td>Abril</td>
+            <td>$1500</td>
+            <td>$950</td>
+            <td class="diferencia positivo">+$550</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </div>
 
   <script>
-    // Esperar a que se cargue el contenido
     window.onload = function () {
-      // Obtener el contexto del canvas
+      // Datos simulados de ingresos y gastos (esto debe ser dinámico, dependiendo de los datos ingresados por el usuario)
+      const transacciones = [
+        { tipo: "ingreso", monto: 1200, mes: "Enero" },
+        { tipo: "gasto", monto: 800, mes: "Enero" },
+        { tipo: "ingreso", monto: 1300, mes: "Febrero" },
+        { tipo: "gasto", monto: 700, mes: "Febrero" },
+        { tipo: "ingreso", monto: 1400, mes: "Marzo" },
+        { tipo: "gasto", monto: 900, mes: "Marzo" },
+        { tipo: "ingreso", monto: 1500, mes: "Abril" },
+        { tipo: "gasto", monto: 950, mes: "Abril" },
+      ];
+
+      const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'];
+      const ingresos = [];
+      const gastos = [];
+
+      meses.forEach(mes => {
+        const ingresosMes = transacciones.filter(t => t.tipo === "ingreso" && t.mes === mes);
+        const gastosMes = transacciones.filter(t => t.tipo === "gasto" && t.mes === mes);
+
+        ingresos.push(ingresosMes.reduce((sum, t) => sum + t.monto, 0));
+        gastos.push(gastosMes.reduce((sum, t) => sum + t.monto, 0));
+      });
+
+      // Crear el gráfico con los datos obtenidos
       const ctx = document.getElementById('proyeccionesChart').getContext('2d');
-      
-      // Crear el gráfico
+
       const proyeccionesChart = new Chart(ctx, {
-        type: 'line',  // Tipo de gráfico: línea
+        type: 'line',
         data: {
-          labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],  // Etiquetas de los meses
-          datasets: [{
-            label: 'Ingresos',  // Nombre de la línea
-            data: [1000, 1200, 1500, 1700, 1800],  // Datos de ingresos
-            borderColor: 'rgba(75, 192, 192, 1)',  // Color de la línea
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Color de fondo debajo de la línea
-            fill: true,  // Rellenar el área debajo de la línea
-            tension: 0.4,  // Curvatura suave de la línea
-            borderWidth: 2  // Grosor de la línea
-          }]
+          labels: meses,  // Etiquetas de los meses
+          datasets: [
+            {
+              label: 'Ingresos',  // Nombre de la línea
+              data: ingresos,     // Datos de ingresos
+              borderColor: 'rgba(75, 192, 192, 1)',  // Color de la línea
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Color de fondo debajo de la línea
+              fill: true,  // Rellenar el área debajo de la línea
+              tension: 0.4,  // Curvatura suave de la línea
+              borderWidth: 2
+            },
+            {
+              label: 'Gastos',  // Nombre de la línea
+              data: gastos,     // Datos de gastos
+              borderColor: 'rgba(255, 99, 132, 1)',  // Color de la línea para gastos
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',  // Color de fondo debajo de la línea
+              fill: true,  // Rellenar el área debajo de la línea
+              tension: 0.4,  // Curvatura suave de la línea
+              borderWidth: 2
+            }
+          ]
         },
         options: {
           responsive: true,
@@ -65,7 +187,7 @@
             y: {
               beginAtZero: true,  // Iniciar el eje Y desde 0
               ticks: {
-                stepSize: 200  // Espaciado entre las marcas del eje Y
+                stepSize: 200
               }
             },
             x: {
@@ -76,29 +198,28 @@
           },
           plugins: {
             legend: {
-              position: 'top',  // Ubicación de la leyenda
+              position: 'top',
               labels: {
                 font: {
-                  size: 14,  // Tamaño de la fuente en la leyenda
-                  family: 'Arial',  // Fuente de la leyenda
-                  weight: 'bold'  // Peso de la fuente de la leyenda
+                  size: 14,
+                  family: 'Arial',
+                  weight: 'bold'
                 }
               }
             }
           },
           elements: {
             point: {
-              radius: 5,  // Tamaño de los puntos
-              hoverRadius: 7,  // Tamaño al hacer hover sobre los puntos
-              backgroundColor: 'rgba(75, 192, 192, 1)',  // Color de los puntos
-              borderColor: '#fff',  // Color del borde de los puntos
-              borderWidth: 2  // Grosor del borde de los puntos
+              radius: 5,
+              hoverRadius: 7,
+              backgroundColor: 'rgba(75, 192, 192, 1)',
+              borderColor: '#fff',
+              borderWidth: 2
             }
           }
         }
       });
     };
   </script>
-
 </body>
 </html>

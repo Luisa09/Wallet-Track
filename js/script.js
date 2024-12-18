@@ -772,6 +772,17 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   
 
+/*Pagar*/
+
+document.getElementById('btnIrAPagar').addEventListener('click', () => {
+    const total = document.getElementById('totallb').innerText;
+    if (parseFloat(total) > 0) {
+        document.querySelector('.container').style.display = 'none'; // Ocultar tabla
+        document.getElementById('paymentFormContainer').style.display = 'block'; // Mostrar formulario
+    } else {
+        alert('No hay un total para pagar.');
+    }
+});
 
 
 
